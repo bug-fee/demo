@@ -1,0 +1,11 @@
+server:
+  #服务端口7901
+  port: 7901
+user:
+  userServicePath: http://localhost:8080/simple/
+
+
+
+
+
+
