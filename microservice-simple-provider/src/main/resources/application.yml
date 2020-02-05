@@ -1,0 +1,39 @@
+server:
+  #服务端口8080
+  port: 8080
+spring:
+  jpa:
+    ##不生成ddl语句
+    generate-ddl: false
+    ##显示sql
+    show-sql: true
+    ##jpa依赖于hibernate
+    hibernate:
+      ##启动时不做ddl语句处理 none
+      ddl-auto: none
+  datasource:
+    ##使用h2数据库
+    platform: h2
+    ##初始化表结构
+    schema: classpath:schema/schema.sql
+    ##初始化数据
+    data: classpath:schema/data.sql
+logging:
+  ##日志级别
+  level:
+    ##根级别显示info
+    root: INFO
+    ##下面三行表显示sql并把参数打印出来
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    ##application下显示DEBUG
+    com.wonders: DEBUG
+
+
+
+
+
+
+
+
