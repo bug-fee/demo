@@ -1,0 +1,41 @@
+server:
+  ##Eureka 默认端口
+  port: 8040
+
+eureka:
+  client:
+    serviceUrl:
+      ##注册到Eureka服务上
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    ##默认使用主机名称访问设置成使用IP地址做为服务提供路径
+    prefer-ip-address: true
+
+spring:
+  application:
+    ##设置应用名称
+    name: microservice-gateway-zuul
+##################################################################################################
+##使用zuul只想负载均衡部分url时，需要指定路由为serviceID 和禁用eureka支持 并需要提供ribbon负载均衡列表
+
+zuul:
+  routes:
+    ##该名称设置为全局唯一即可
+    abc:
+      ##设置被代理的服务访问路径为/user-path/**  ,浏览器跨域访问该应用时前缀为/user-path
+      ##如果写成/user-path/* 后缀只有一个*时 将只能访问一层路径。
+      path: /user-path/**
+      ##设置需要代理的服务ID
+      serviceId: microservice-provider-user
+
+###只使用ribbon不使用eureka：1.禁用eureka.2.添加ribbon服务列表
+ribbon:
+  eureka:
+    enabled: false
+
+##设置需要被ribbion负载均衡的服务名称
+microservice-provider-user:
+  ribbon:
+    ##设置当前需要被ribbon负载均衡的服务列表对应的端口及路径
+    listOfServers: localhost:7900,localhost:7901
+##################################################################################################

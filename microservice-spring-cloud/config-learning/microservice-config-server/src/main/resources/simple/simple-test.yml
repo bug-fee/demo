@@ -1,0 +1,4 @@
+##该文件是保存在github中的文件：被config-server提供给config-client，
+##修改该文件后提交到git中，config-server能实时获取到最新文件内容发送给config-client
+##uri访问路径与此配置无关
+profile: simple-test

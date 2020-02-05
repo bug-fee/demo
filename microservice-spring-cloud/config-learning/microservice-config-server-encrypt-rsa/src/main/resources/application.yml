@@ -1,0 +1,33 @@
+server:
+  ##默认端口
+  port: 8080
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/bug-fee/microservice-spring-cloud
+          search-paths: "config-learning/microservice-config-server-encrypt-rsa/src/main/resources/remoteConfig"
+          username: bug-fee
+          password: za1050191117
+#        encrypt:
+          ##如果不想让spring自动帮你解密密文可以设置该配置项为false
+#          enabled: false
+
+##配置非对称RSA加密，需要配置非对称加密文件，参考 java keytool
+##用于避免公开仓库的配置文件中的账号密码暴露在外
+##可以将远端配置文件中的密文密码解析为明文密码返回给config-client
+encrypt:
+  key-store:
+    location: classpath:/server.keystore
+    ##对应keytool中 -storepass命令后的参数
+    password: change
+    ##对应 -alias 命令后的参数
+    alias: configSserver
+    ##对应 -keypass 命令后的参数
+    secret: foobar
+
+##CURL测试:需要开启本地服务
+##使用CMD运行 “curl -X POST  http://127.0.0.1:8080/encrypt -d foo” 将“foo”字符加密为密文
+##同样也可以使用CMD运行“curl -X POST  http://127.0.0.1:8080/decrypt -d AIBQMF6wzHZpKwW7AXRlgM8CSUkiXOUMSun+aNSVBoyQYNjAA0kKLrln3aFeGG8B8M+tGoqBSkAUEZ8/g9tUrhz5HtQflt7HSXOyvvhKGJxajZMea+pr4E/EwU2UzVRAw5V2hHHpiLJzd0NAOVdI4YFO+SLYjMJYTCESQ+YJNhmWjS58zJAH2fq02++c8ygmUtaet/ObtH0BUbZMfoxV+7V/” 将密文解析为明文密码

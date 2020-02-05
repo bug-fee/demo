@@ -1,0 +1,55 @@
+server:
+  ##Eureka 默认端口
+  port: 8040
+
+eureka:
+  client:
+    serviceUrl:
+      ##注册到Eureka服务上
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    ##默认使用主机名称访问设置成使用IP地址做为服务提供路径
+    prefer-ip-address: true
+
+spring:
+  application:
+    ##设置当前应用名称
+    name: microservice-gateway-zuul
+
+#zuul:
+#  ##zuul全局设置(如下设置全局生效) strip-prefix用例一
+#  ##设置zuul反向代理的服务路径前缀（只为前缀为/simple的路径进行代理） http://127.0.0.1:8040/simple/v1/microservice-provider-user/simple/1
+#  prefix: /simple
+#  ##需要与prefix联合使用，当被代理的服务路径前缀有/simple时去掉该前缀，连接前缀后面的路径
+#  ##示例： http://127.0.0.1:8040/simple/v1/microservice-provider-user/1
+#  strip-prefix: false
+#  ##表示忽略该路径，不进行反向代理
+#  ignored-patterns: /**/admin/**
+
+
+
+##strip=prefix有两种用法：第二种用法用于局部路由生效，配置于zuul.routes.<route>.stripPrefix = *  ，表示所有访问/demo/**路径的请求都转发给 http://demo.com.cn/并，去除/demo前缀
+zuul:
+  routes:
+    ##该名称设置为全局唯一即可
+    abc:
+      ##设置被代理的服务访问路径为/simple/** (可以设为与访问地址无关的前缀) ,浏览器跨域访问该应用时前缀为/simple
+      ##如果写成/simple/* 后缀只有一个*时 将只能访问一层路径。
+      path: /simple/**
+      ##strip-prefix用例二，表示访问服务地址/simple/***时去掉前缀/simple追加到下面的配置"url" 地址中
+      ##当同时配置有strip=prefix和PatternServiceRouteMapper(前缀"qpi"访问)时两者同事生效
+      ## 访问路径 http://127.0.0.1:8040/simple/1 和 http://127.0.0.1:8040/v1/microservice-provider-user/simple/1
+      strip-prefix: true
+      ##设置需要代理的服务ID
+      url: http://127.0.0.1:7905/simple/
+    ##表示剩下的路径按/** 去映射
+    ##PS：abc的优先级比legacy要高，默认先走abc找不到再走legacy。如果使用properties文件则无法实现优先级效果
+    legacy:
+      path: /**
+
+    #默认的zull的Http clietn现在是Apach HTTP Client,替代了已过期的Ribbon RestClient。想使用RestClient或使用okhttp3.OKHttpClient,可以设置ribbon.restclient.enable=true或者ribbon.okhttp.enable=true
+
+##将 zuul日志级别设为debug，用于查看映射路径
+logging:
+  level:
+    com.netflix: debug

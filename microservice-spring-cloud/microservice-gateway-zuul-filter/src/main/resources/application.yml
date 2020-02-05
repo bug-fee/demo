@@ -1,0 +1,35 @@
+server:
+  ##Eureka 默认端口
+  port: 8040
+
+eureka:
+  client:
+    serviceUrl:
+      ##注册到Eureka服务上
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    ##默认使用主机名称访问设置成使用IP地址做为服务提供路径
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"  # * 在yaml 文件属于关键字，所以需要加引号
+
+##禁用zuul默认的filter
+#zuul.SendResponseFilter.post.disable = true。
+
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            ##设置hystrix断路器超时时间,当上传大文件时出现超时情况，可以设置hystrix超时时间（默认经过zuul的请求都会被hystrix包裹）
+#            timeoutInMilliseconds: 60000
+#ribbon:
+#  ##连接超时时间
+#  connectTimeout: 3000
+#  ##zuul也默认使用了ribbon作负载均衡，当上传大文件时出现尝试情况，可以设置ribbon的超时时间
+#  readTimeout: 60000

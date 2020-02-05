@@ -1,0 +1,56 @@
+server:
+  ##默认端口
+  port: 8080
+
+
+##config-server实时将github中最新的配置文件发送给config-client
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          ##对应远程仓库的项目根路径(支持SVN和GIT等)
+          uri: https://github.com/bug-fee/microservice-spring-cloud
+          ##配置根目录下对应的的文件夹目录，多个文件夹时使用逗号分隔开。这些文件夹中的yml和properties文件被缓存到config-server中( 默认按{application}去匹配 {application}-{profile}.xml[properties] 文件 将文件内容返回，匹配不到时默认返回application.yml[properties]文件的内容)
+          ##对应 https://github.com/bug-fee/microservice-spring-cloud/branches/coding/config-learning/microservice-config-server/src/main/resources/remoteConfig/application.yml 去掉了“/branches/coding”层级被{label}替换掉了
+          search-paths: "config-learning/microservice-config-server/src/main/resources/remoteConfig"
+          ##可以使用占位符来拼接远程仓库的访问地址 http://127.0.0.1:8080/coding/abc-profile.yml 实际访问如下地址： https://github.com/bug-fee/microservice-spring-cloud/branches/coding/config-learning/microservice-config-server/src/main/resources/remoteConfig/abc/profile/application.yml
+          #search-paths: "config-learning/microservice-config-server/src/main/resources/remoteConfig/{application}/{profile}"
+          #当Git仓库为private时需要配置远程仓库账号密码
+          username: bug-fee
+          password: za1050191117
+#          clone-on-start: true
+          ###如下配置(repos.simple[special])本地没有测试成功，因为需要创建多个git project并且配置文件只支持放在根目录下(因为spring.cloud.config.repos.[simple].search-paths无效)，我懒得建多个git项目
+          repos:
+            ##当找不到指定配置时默认从spring.cloud.server.git.uri获取配置
+            simple: https://github.com/bug-fee/microservice-spring-cloud/simple
+            special:
+              ##匹配以special-dev.yml和special-test.yml命名的文件
+              pattern: special*/dev*,special*/test*
+              uri: https://github.com/bug-fee/microservice-spring-cloud/special
+              ###search-paths无效，所以使用spring.cloud.config.git.repos时配置文件只支持放在项目根目录下
+              search-paths: "config-learning/microservice-config-server/src/main/resources"
+
+##设置git仓库密码加密，用于避免公开仓库配置文件中的账号密码暴露在外
+##需要下载jdk1.8 JEC 将JEC中的两个jar包替换放入%JDK_HOME%\jre\lib\security下
+##测试CMD运行命令行 curl -X POST  http://127.0.0.1:8080/encrypt -d foo    即可加密
+##测试CMD运行民林航 curl -X POST  http://127.0.0.1:8080/decrypt -d 210a917f14ff311cc0f3361055758d81a61e48441a7275fb04abbcffb45586c3    即可解密
+encrypt:
+  key: foo
+
+
+  ###################---------------------##########
+  ###label代表git中的branches分支；application代表当前访问的项目名称；profile代表远程文件中的profile项
+  ###当使用git时不配置label时默认访问master(发布版、对外公开版)根目录，配置label时可以访问对应branches中的分支
+  ###如下路径都可映射
+
+  ##当远程仓库地址为master主分支时可以不填写label
+  ##当git中某个yml或properties文件以{application}-{profile}.yml[properties]命名时 访问 /{application}/{profile}/{lable}可以获得逻辑路径下的所有文件的描述
+  #/{application}/{profile}[/{label}]
+  #/{application}-{profile}.yml
+  #/{label}/{application}-{profile}.yml
+  #/{application}-{profile}.properties
+  #/{label}/{application}-{profile}.properties
+
+
+  ###################---------------------##########

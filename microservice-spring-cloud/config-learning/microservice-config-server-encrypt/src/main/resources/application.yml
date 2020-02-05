@@ -1,0 +1,20 @@
+server:
+  ##默认端口
+  port: 8080
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/bug-fee/microservice-spring-cloud
+          search-paths: "config-learning/microservice-config-server-encrypt/src/main/resources/remoteConfig"
+          username: bug-fee
+          password: za1050191117
+
+##需要下载JDK1.8 JCE 然后将加密码后的密码写到远端配置文件中
+##将JDK1.8中的jar包放入%JDK_HOME%\jre\lib\security下，运行 curl -X POST  http://127.0.0.1:8080/encrypt -d foo  进行加密
+###配置解密key，可以配合远程配置文件中的 {cipher}210a917f14ff311cc0f3361055758d81a61e48441a7275fb04abbcffb45586c3  达到解密的目的，当configServer获取到GIT中的配置文件时把配置文件中含有占位符({cipher})的字符串进行解密后发送给configClient
+##yml文件使用时书写必须含有单引号，properties文件书写时不需要单引号
+encrypt:
+  key: foo

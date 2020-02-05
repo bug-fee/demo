@@ -1,0 +1,28 @@
+server:
+  ##Eureka 默认端口
+  port: 8040
+
+eureka:
+  client:
+    serviceUrl:
+      ##注册到Eureka服务上
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    ##默认使用主机名称访问设置成使用IP地址做为服务提供路径
+    prefer-ip-address: true
+
+spring:
+  application:
+    ##设置应用名称
+    name: microservice-gateway-zuul
+
+zuul:
+  routes:
+    ##该名称设置为全局唯一即可
+    abc:
+      ##设置被代理的服务访问路径为/user-url/**  ,浏览器跨域访问该应用时前缀为/user-url
+      ##如果写成/user-path/* 后缀只有一个*时 将只能访问一层路径。
+      path: /user-url/**
+      ##通过url代理指定服务,当使用url代理时不会加入作为hystrixCommand执行，也不能使用ribbon来平衡多个URL达到客户端负载均衡(使用serviceid访时配置代理可以参与到hystrix和ribbon)。
+      ##设置需要代理的url，访问该服务时可以通过路径http://localhost:8040/user-url/ 访问
+      url: https://zhidao.baidu.com/search

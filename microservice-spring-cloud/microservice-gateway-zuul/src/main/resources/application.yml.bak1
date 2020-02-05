@@ -1,0 +1,25 @@
+server:
+  ##Eureka 默认端口
+  port: 8040
+
+eureka:
+  client:
+    serviceUrl:
+      ##注册到Eureka服务上
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    ##默认使用主机名称访问设置成使用IP地址做为服务提供路径
+    prefer-ip-address: true
+
+spring:
+  application:
+    ##设置应用名称
+    name: microservice-gateway-zuul
+
+zuul:
+  routes:
+    ##默认情况下zuul会反向代理所有注册到eureka服务上的应用。 使用 指定服务的应用名/applicationName 可以在前端跨域访问资源
+    ##使用zuul代理名为 microservice-provider-user 的服务 使其访问路径前缀改为/user，同时也支持使用原路径/microservice-provider-user访问该服务
+    microservice-provider-user: /user/**
+  ##不反向代理所有服务，(多个服务时使用服务名称逗号分开)如果配置ignored-services时还配置了routes，就只代理routes对应的所有服务
+  ignored-services: '*'

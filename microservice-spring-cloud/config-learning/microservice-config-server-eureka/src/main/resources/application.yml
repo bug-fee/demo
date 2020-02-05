@@ -1,0 +1,40 @@
+server:
+  ##默认端口
+  port: 8080
+
+
+eureka:
+  client:
+    healthcheck:
+      #使用health端点来代替心跳表明服务是否可用，反应到eureka server ui上服务是的UP还是DOWN
+      enabled: true
+    serviceUrl:
+      ##支持并连接Ureka服务端
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    ##使用IP地址做为服务提供路径。默认使用主机名称访问
+    prefer-ip-address: true
+    ##使用“应用名称：实例IE：端口号”的组合显示实例ID
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    ##自定义eureka服务列表中的应用名称：为了填坑(swagger框架与springCloud不太兼容，使用该配置项可以可以避免服务名称为unknown)
+    ##该名称定义了eureka中服务名称的VIP 如果不配置此项，则默认使用spring.application.name
+    appname: microservice-config-server-eureka
+
+##config-server实时将github中最新的配置文件发送给config-client
+spring:
+  application:
+    name: microservice-config-server-eureka
+  cloud:
+    config:
+      server:
+        git:
+          ##对应远程仓库的项目根路径(支持SVN和GIT等)
+          uri: https://github.com/bug-fee/microservice-spring-cloud
+          ##配置根目录下对应的的文件夹目录，多个文件夹时使用逗号分隔开。这些文件夹中的yml和properties文件被缓存到config-server中( 默认按{application}去匹配 {application}-{profile}.xml[properties] 文件 将文件内容返回，匹配不到时默认返回application.yml[properties]文件的内容)
+          ##对应 https://github.com/bug-fee/microservice-spring-cloud/branches/coding/config-learning/microservice-config-server/src/main/resources/remoteConfig/application.yml 去掉了“/branches/coding”层级被{label}替换掉了
+          search-paths: "config-learning/microservice-config-server-eureka/src/main/resources/remoteConfig"
+          ##可以使用占位符来拼接远程仓库的访问地址 http://127.0.0.1:8080/coding/abc-profile.yml 实际访问如下地址： https://github.com/bug-fee/microservice-spring-cloud/branches/coding/config-learning/microservice-config-server/src/main/resources/remoteConfig/abc/profile/application.yml
+          #search-paths: "config-learning/microservice-config-server/src/main/resources/remoteConfig/{application}/{profile}"
+          #当Git仓库为private时需要配置远程仓库账号密码
+          username: bug-fee
+          password: za1050191117

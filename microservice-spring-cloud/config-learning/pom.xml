@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.wonders</groupId>
+    <artifactId>config-learning</artifactId>
+    <name>config-learning</name>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>com.wonders</groupId>
+        <artifactId>microservice-spring-cloud</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <modules>
+        <!--spring-config-server-->
+        <module>microservice-config-server</module>
+        <!--spring-config-client-->
+        <module>microservice-config-client</module>
+        <!--spring-config-server 加密解密(对称加密，加密和解密时使用的key相同)-->
+        <module>microservice-config-server-encrypt</module>
+        <!--spring-config-server 加密解密(非对称加密，加密和解密时使用的key不同，采用公钥和私钥)-->
+        <module>microservice-config-server-encrypt-rsa</module>
+        <!--spring-config集成security-->
+        <module>microservice-config-server-authc</module>
+        <module>microservice-config-client-authc</module>
+        <!--spring-cloud-config 配合 eureka使用-->
+        <module>microservice-config-server-eureka</module>
+        <module>microservice-config-client-eureka</module>
+        <!--spring cloud config 配置属性手动刷新-->
+        <module>microservice-config-client-refresh</module>
+        <!--spring cloud config 配置属性自动刷新-->
+        <module>microservice-config-client-refresh-bus</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+
+
+    </dependencies>
+</project>

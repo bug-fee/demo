@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.wonders</groupId>
+    <artifactId>microservice-spring-cloud</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.4.7.RELEASE</version>
+    </parent>
+
+    <modules>
+        <!-- indication children project of root element as artifactId-->
+        <!--consumer-->
+        <module>microservice-consumer-movie</module>
+        <!--provider-->
+        <module>microservice-provider-user</module>
+        <!--自定义ribbon配置-->
+        <module>microservice-provider-user-ribbon</module>
+        <module>microservice-consumer-movie-ribbon-properties-customizing</module>
+        <!--单独使用ribbon不使用eureka-->
+        <module>microservice-consumer-movie-ribbon-without-eureka</module>
+        <!--feign-->
+        <module>microservice-consumer-movie-feign</module>
+        <!--feign自定义配置-->
+        <module>microservice-consumer-movie-feign-costomizing</module>
+        <!--eureka-->
+        <module>microservice-discovery-eureka</module>
+        <!-- eureka高可用 -->
+        <module>microservice-discovery-eureka-ha</module>
+        <!--Hystrix断路器（雪崩解决方案）-->
+        <module>microservice-consumer-movie-ribbon-within-hystrix</module>
+        <!--Hystrix断路器传播方式-->
+        <module>microservice-consumer-movie-ribbon-within-hystrix-propagation</module>
+        <!--feign对hystix的支持(集成使用)-->
+        <module>microservice-consumer-movie-feign-within-hystrix</module>
+        <!--feign对hystrix的支持(自定义使用：部分Client禁用hystrix)-->
+        <module>microservice-consumer-movie-feign-costomizing-within-hystrix</module>
+        <!--fystrix工厂模式：获取请求失败原因-->
+        <module>microservice-consumer-movie-feign-within-hystrix-hystrix-factory</module>
+        <!--hystrix控制面板的使用与常见问题：演示使用当前服务的面板监控其他hystrix服务的断路器-->
+        <module>microservice-hystrix-dashboard</module>
+        <!--turbine：用于监控所有集成了hystrix的微服务(监控集群)-->
+        <module>microservice-hystrix-turbine</module>
+        <!--当turbine监控的服务有自定义的applicationName时指定turbine监控路径-->
+        <module>microservice-hystrix-turbine2</module>
+        <module>microservice-consumer-movie-ribbon-within-hystrix2</module>
+        <!--1.开启双端口。业务访问默认端口，[管理端口]交给eureka暴露给其它服务 2.通过元数据监控指定服务群-->
+        <module>microservice-hystrix-turbine3</module>
+        <module>microservice-consumer-movie-ribbon-within-hystrix3</module>
+        <!--使用反向代理 api gateway zuul，集成zuul反向代理情况下可以使用浏览器跨域访问被eureka监控的所有服务的资源 -->
+        <module>microservice-gateway-zuul</module>
+        <!--zuul正则表达式-->
+        <module>microservice-gateway-zuul-reg-exp</module>
+        <module>microservice-provider-user-v1</module>
+        <!--使用zuul上传文件-->
+        <module>microservice-file-upload</module>
+        <!--使zuul支持回退-->
+        <module>microservice-gateway-zuul-fallback</module>
+        <!--附加服务：集成其他语言搭建的应用端服务（该服务需要提供健康监控节点/health.json）-->
+        <module>microservice-sidecar</module>
+        <!--zuul过滤器-->
+        <module>microservice-gateway-zuul-filter</module>
+        <!--spring-config的相关应用集合-->
+        <module>config-learning</module>
+
+    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <!--<optional>true</optional>-->
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Camden.SR3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+
+</project>

@@ -1,0 +1,31 @@
+server:
+  ##Eureka 默认端口
+  port: 8040
+
+eureka:
+  client:
+    serviceUrl:
+      ##注册到Eureka服务上
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    ##默认使用主机名称访问设置成使用IP地址做为服务提供路径
+    prefer-ip-address: true
+
+spring:
+  application:
+    ##设置应用名称
+    name: microservice-gateway-zuul
+
+management:
+  endpoints:
+    web:
+      exposure:
+        ##设置actuator暴露所有端点，使支持访问/actuator/routes 查看zuul所有路由器情况
+        include: "*"
+zuul:
+  ##表示在使用zuul进行反向代理时不将某些header传递到downStream(由zuul代理的下游应用服务器)中去，避免暴露己方的凭证等敏感信息。
+  sensitive-headers: abc
+  ##表示是否不将springSecurity的headers传播到下游服务器,默认为true。
+  ignore-security-headers: true
+  ##表示要忽略某些headers不传播到下游服务器去，ignored-headers作用范围包含ignore-security-headers，ignore-security-headers中的内容会添加到ignored-headers中
+  ignored-headers: abc

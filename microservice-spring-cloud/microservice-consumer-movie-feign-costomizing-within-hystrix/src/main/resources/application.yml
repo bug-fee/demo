@@ -1,0 +1,63 @@
+server:
+  #服务端口7901
+  port: 7901
+eureka:
+  client:
+    healthcheck:
+      #使用health端点来代替心跳表明服务是否可用，反应到eureka server ui上服务是的UP还是DOWN
+      enabled: true
+    serviceUrl:
+      ##支持并连接Ureka服务端
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    ##默认使用主机名称访问设置成使用IP地址做为服务提供路径
+    prefer-ip-address: true
+    ##使用“应用名称：端口号”的组合显示实例ID
+    #instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    ##使用应用名称：IP地址：端口号
+    #spring could 2.0版本 需要改成${spring.cloud.client.ip_address}否则${spring.cloud.client.ipAddress}或者${spring.cloud.client.ip-address}
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+    #instance-id: :${server.port}
+    ##配置Eureka客户端元数据
+    metadata-map:
+      ##标准元数据：主机名、IP地址、端口号、状态页和健康检查等信息，这些信息都会被发布在服务注册表中，用于服务之间的调用。
+      ##标准元数据zone对客户端有影响
+      zone: ABC
+      ##自定义元数据对客户端没有影响，除非客户端知道该元数据的含义。
+      lilizhou: BBC
+    ##默认心跳监控时间为30秒(3次不响应则从服务注册表摘除)，客户端和服务端保存有相同的服务注册表，双方的注册表内都有对方时该实例才会生效，将时间调低可以加快客户端连接到其他服务的过程
+    lease-renewal-interval-in-seconds: 30
+
+##配置actuator监控系统健康情况
+management:
+  endpoints:
+    web:
+      exposure:
+        ##测试环境下暴露所有端点(暴露/health等路径，系统健康信息等全部暴露不太安全)  * 在yaml 文件属于关键字，所以需要加引号
+        include: "*"
+
+spring:
+  application:
+    name: microservice-consumer-movice
+
+feign:
+  compression:
+    request:
+      ##允许feign对请求进行压缩
+      enabled: true
+      ##设置允许feign返回的消息体内容
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+    response:
+      ##允许feign对响应体进行压缩
+      enabled: true
+
+##当前版本的feign默认已经关闭了hystrix 的支持，需要使用hystrix时需手动配置打开
+feign.hystrix.enabled: true
+
+##解决feign启动服务器后首次访问出现连接超时方式一：设置超时时间默认1000(1秒)
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 3000
+##解决feign启动服务器后首次访问出现连接超时方式二：不允许超时
+##hystrix.command.default.excution.timeout.enabled: false
+##解决feign启动服务器后首次访问出现连接超时三：直接禁用掉hystrix
+##feign.hystrix.enabled: false

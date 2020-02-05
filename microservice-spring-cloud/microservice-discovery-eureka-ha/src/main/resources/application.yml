@@ -1,0 +1,68 @@
+###############################
+##配置eureka高可用
+##本地测试时需要将peer1 peer2 peer3加入到DNS解析列表中
+
+  #添加本地DNS解析:
+  #1.运行命令win键+r开启运行
+  #2.输入drivers
+  #3.进入etc文件夹修改hosts文件夹
+  #4.添加 127.0.0.1 peer1 peer2 peer2
+
+##将两个配置peer1、peer2和peer3分别启动,可以看到服务器管理页面相互间的 DS Replicas中有对应的复制品;instances currently中有对应的服务，当当前服务器宕机后会使用复制品作为新的eureka服务器（互相引用）
+###############################
+spring:
+  application:
+    name: EUREKA-HA
+  profiles:
+    ##以peer2为配置项启动应用
+    active: peer3
+  ##设置Eureka安全登录时需要添加spring-boot-starter-security依赖；此处有坑，必须填写spring: 否则失效；
+  security:
+    basic:
+      enabled: true
+    user:
+      ##登录时输入用户名密码
+      name: user
+      password: password123
+
+---
+server:
+  port: 8761
+spring:
+  profiles: peer1
+eureka:
+  instanse:
+    hostname: peer1
+  client:
+    serviceUrl:
+      ##peer1把自己注册到peer2互相关联实现高可用
+      #defaultZone: http://user:password123@peer2:8762/eureka/
+      ##使用多个复制品实现eureka高可用
+      defaultZone: http://user:password123@peer2:8762/eureka/,http://user:password123@peer3:8763/eureka/
+      ##注意：高可用eureka服务器开发时，eureka客户端(provider/consumer)在注册服务时建议将eureka服务端地址全部填写上如上面一行，因为只填写某一个eureka服务端地址的话正好那个服务端地址宕机了，这个客户端将无法上线,使用多个地址可以确保能启动。
+
+---
+server:
+  port: 8762
+spring:
+  profiles: peer2
+eureka:
+  instance:
+    hostname: peer2
+  client:
+    serviceUrl:
+      ##peer2把自己注册到peer1互相关联实现高可用
+      defaultZone: http://user:password123@peer1:8761/eureka/,http://user:password123@peer3:8763/eureka/
+
+---
+server:
+  port: 8763
+spring:
+  profiles: peer3
+eureka:
+  instance:
+    hostname: peer3
+  client:
+    serviceUrl:
+      ##peer2把自己注册到peer1互相关联实现高可用
+      defaultZone: http://user:password123@peer1:8761/eureka/,http://user:password123@peer2:8762/eureka/

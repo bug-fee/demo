@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.wonders</groupId>
+    <artifactId>microservice-discovery-eureka-ha</artifactId>
+    <name>microservice-discovery-eureka-ha</name>
+    <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>com.wonders</groupId>
+        <artifactId>microservice-spring-cloud</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka-server</artifactId>
+            <version>1.4.6.RELEASE</version>
+        </dependency>
+        <!--引用spring-boot-starter-security时如果未在配置文件中设置登录账户密码将自动产生一个随机密码输出控制台可以看到-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>2.0.6.RELEASE</version>
+        </dependency>
+
+
+    </dependencies>
+</project>

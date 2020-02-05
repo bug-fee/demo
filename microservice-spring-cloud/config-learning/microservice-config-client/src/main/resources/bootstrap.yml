@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    config:
+      ##配置configServer的访问地址
+      uri: http://127.0.0.1:8080
+      ## 对应 {application}-{profile}.yml 中的profile
+      profile: dev
+      ## 对应GIT中的分支，不填写时默认为master
+      label: coding
+      ##在某些特殊情况下，首次启动可能链接不上config-server，配置该属性可避免首次启动报错
+#      fail-fast: true
+  ##当spring.cloud.config.name没有配置时，默认使用application.name当做{application}去加载远端配置信息
+  application:
+    ##官方建议将application.name配置在bootstrap.yml中，建议不想修改的配置信息可以配置 在application.yml中
+    ##当不配置application.name时默认访问远端服务中的application.yml[properties]
+    name: foobar

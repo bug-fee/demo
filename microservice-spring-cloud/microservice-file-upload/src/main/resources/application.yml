@@ -1,0 +1,39 @@
+server:
+  #服务端口8050
+  port: 8050
+spring:
+  application:
+    ##应用名称建议全使用小写
+    name: microservice-file-upload
+  server:
+    #设置文件可上传最大兆数，默认1M
+    #**注意：**KB、MB……一定要带有B，不可以写K、M
+    MaxFileSize: 300MB
+    #设置请求最大兆数，默认为10M
+    MaxRequestSize: 500MB
+
+eureka:
+  client:
+    healthcheck:
+      #使用health端点来代替心跳表明服务是否可用，反应到eureka server ui上服务是的UP还是DOWN
+      enabled: true
+    serviceUrl:
+      ##支持并连接Ureka服务端
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    ##使用IP地址做为服务提供路径。默认使用主机名称访问
+    prefer-ip-address: true
+    ##使用“应用名称：实例IE：端口号”的组合显示实例ID
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    ##自定义eureka服务列表中的应用名称：为了填坑(swagger框架与springCloud不太兼容，使用该配置项可以可以避免服务名称为unknown)
+    ##该名称定义了eureka中服务名称的VIP 如果不配置此项，则默认使用spring.application.name
+    appname: microservice-file-upload
+
+##配置actuator监控系统健康情况
+management:
+  endpoints:
+    web:
+      exposure:
+        ##测试环境下暴露所有端点(暴露/health等路径，系统健康信息等全部暴露不太安全)  * 在yaml 文件属于关键字，所以需要加引号
+        include: "*"
+

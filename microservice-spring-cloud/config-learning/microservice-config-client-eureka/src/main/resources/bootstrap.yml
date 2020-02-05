@@ -1,0 +1,30 @@
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: microservice-config-server-eureka
+      profile: dev
+      ## 对应GIT中的分支，不填写时默认为master(如果不是master时必须填写lable属性)
+      label: coding
+  application:
+    ##官方建议将application.name配置在bootstrap.yml中，建议不想修改的配置信息可以配置 在application.yml中
+    ##当不配置application.name时默认访问远端服务中的application.yml[properties]
+    name: microservice-config-client-eureka
+
+eureka:
+  client:
+    healthcheck:
+      #使用health端点来代替心跳表明服务是否可用，反应到eureka server ui上服务是的UP还是DOWN
+      enabled: true
+    serviceUrl:
+      ##支持并连接Ureka服务端
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    ##使用IP地址做为服务提供路径。默认使用主机名称访问
+    prefer-ip-address: true
+    ##使用“应用名称：实例IE：端口号”的组合显示实例ID
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    ##自定义eureka服务列表中的应用名称：为了填坑(swagger框架与springCloud不太兼容，使用该配置项可以可以避免服务名称为unknown)
+    ##该名称定义了eureka中服务名称的VIP 如果不配置此项，则默认使用spring.application.name
+    appname: microservice-config-client-eureka

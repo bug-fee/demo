@@ -1,0 +1,35 @@
+##设置Eureka安全登录时需要添加spring-boot-starter-security依赖；此处有坑，某些版本的spring-security必须填写spring.security...否则失效；
+security:
+  basic:
+    ##是否开启基本的鉴权，默认为true
+    enabled: true
+  user:
+    ##登录时输入用户名密码
+    name: user
+    password: password123
+server:
+  ##Eureka 默认端口
+  port: 8761
+eureka:
+  ##配置eureka.datacenter=cloud，这样eureka就知道是在AWS云上
+  datacenter: cloud
+  ##配置eureka环境为生产环境，eureka管理主页的显示效果
+  environment: product111
+  server:
+    ##关闭自我保护模式
+    enable-self-preservation: false
+    ##设置清理间隔(单位毫秒，默认是60*1000)
+    eviction-interval-timer-in-ms: 60000
+  client:
+    ##单机模式：不启动客户端(Eureka服务器内部存在客户端：用于和其它Eureka同步注册表)
+    register-with-eureka: false
+    ##单机情况下不抓取注册表
+    fetch-registry: false
+    ##将Eureka注册到指定的URL上
+    serviceUrl:
+      ##设置Eureka服务器路径;服务器管理路径为:http://localhost:8761/
+      defaultZone: http://user:password123@localhost:8761/eureka
+  ##dashbord设置为false时将不允许访问Eureka管理界面
+  dashboard: true
+  ##path设置Eureka服务器的根路径默认为/
+  path: /

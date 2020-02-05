@@ -1,0 +1,22 @@
+server:
+  ##默认端口
+  port: 8070
+
+spring:
+  application:
+    name: microservice-sidecar
+eureka:
+  client:
+    serviceUrl:
+      ##注册到Eureka服务上
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    ##默认使用主机名称访问设置成使用IP地址做为服务提供路径
+    prefer-ip-address: true
+
+##设置sidecar代理的服务地址
+sidecar:
+  ##代理服务端口
+  port: 8060
+  ##代理服务健康状态监控地址
+  health-uri: http://localhost:8060/health.json

@@ -1,0 +1,31 @@
+spring:
+  cloud:
+    config:
+      ##配置configServer的访问地址
+      uri: http://127.0.0.1:8080
+      ## 对应 {application}-{profile}.yml 中的profile
+      profile: default
+      ## 对应GIT中的分支，不填写时默认为master
+      label: coding
+    bus:
+      trace:
+        ##配置trace.enabled=true ,可访问 /trace 路径直接观察config-client的当前应用集群最近刷新了哪些实例的配置信息
+        enabled: true
+  ##当spring.cloud.config.name没有配置时，默认使用application.name当做{application}去加载远端配置信息
+  application:
+    ##官方建议将application.name配置在bootstrap.yml中，建议不想修改的配置信息可以配置 在application.yml中
+    ##当不配置application.name时默认访问远端服务中的application.yml[properties]
+    name: foobar
+    ## 与下面一行配置的作用相同，配置该属性可解决不同主机上发布相同应用名称和相同端口的服务时 /bus/refresh 起不到刷新所有应用的作用。
+#    index: '${INSTANCE_INDEX}'
+    index: '${random.long}'
+  ##配置rabbitMQ 应用地址
+  rabbitmq:
+    host: 127.0.0.1
+    ##此处有坑：rabbit监控端口地址为5672，与web段管理地址不同(15672)
+    port: 5672
+    username: guest
+    password: guest
+  jmx:
+    default-domain: domain2
+

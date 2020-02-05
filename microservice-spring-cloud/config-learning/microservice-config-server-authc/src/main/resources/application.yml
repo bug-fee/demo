@@ -1,0 +1,23 @@
+server:
+  ##默认端口
+  port: 8080
+
+security:
+  basic:
+    ##是否开启基本的鉴权，默认为true
+    enabled: true
+  user:
+    ##登录时输入用户名密码
+    name: user
+    password: password123
+
+##config-server实时将github中最新的配置文件发送给config-client
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/bug-fee/microservice-spring-cloud
+          search-paths: "config-learning/microservice-config-server-authc/src/main/resources/remoteConfig"
+          username: bug-fee
+          password: za1050191117

@@ -1,0 +1,43 @@
+server:
+  #服务端口7901
+  port: 8010
+  servlet:
+    ##设置application项目根目录路径  http://localhost:8010/ribbon/findById?id=1
+    context-path: /ribbon
+eureka:
+  client:
+    healthcheck:
+      #使用health端点来代替心跳表明服务是否可用，反应到eureka server ui上服务是的UP还是DOWN
+      enabled: true
+    serviceUrl:
+      ##支持并连接Ureka服务端
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    ##默认使用主机名称访问设置成使用IP地址做为服务提供路径
+    prefer-ip-address: true
+    ##使用“应用名称：实例IE：端口号”的组合显示实例ID
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    ##告诉eureka 当前应用的项目根路径为/ribbon (默认为/)，hystrix从eureka中获取到该参数时，自动追加到http://localhost:8010/ribbon后面形成hystrix状态输出路径。配置server.servlet.context-path时需要指定
+    home-page-url-path: /ribbon
+    metadata-map:
+      ##设置元数据此处写成${management.server.port}也行,与management.server.port同时使用开启双端口，默认端口由业务访问，此端口由eureka暴露给其它服务。
+      management.server.port: 8081
+
+##配置actuator监控系统健康情况
+management:
+  endpoints:
+    web:
+      exposure:
+        ##测试环境下暴露所有端点(暴露/health等路径，系统健康信息等全部暴露不太安全)  * 在yaml 文件属于关键字，所以需要加引号
+        include: "*"
+  server:
+    ##开启双端口，正常业务访问访问application的默认端口，而设置的此端口暴露到eureka中
+    port: 8081
+########################################################################################
+##DIY
+user:
+  userServicePath: http://localhost:8080/simple/
+########################################################################################
+spring:
+  application:
+    name: microservice-consumer-movice-ribbon-within-hystrix3

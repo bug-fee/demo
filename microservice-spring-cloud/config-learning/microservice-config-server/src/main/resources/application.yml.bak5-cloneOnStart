@@ -1,0 +1,19 @@
+server:
+  port: 8080
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://git.oschina.net/it-much/config-repo-51cto-video      # 公用
+          ##全局配置，在启动时候将所有仓库中的配置down下来。默认为false每次请求每次从Git中获取
+          ##当clone-on-start配置未false时，不会发现Git地址错误，直到客户端请求过来时才会抛出错误
+          clone-on-start: true
+          repos:
+            simple: https://git.oschina.net/it-much/simple
+            special:
+              pattern: special*/dev*,special*/test*
+              uri: https://git.oschina.net/it-much/special
+              ##局部配置，启动时不down该仓库的配置文件，局部配置的优先级比全局配置的优先级较高
+              cloneOnStart: false
+          

@@ -1,0 +1,55 @@
+server:
+  #服务端口7902
+  port: 7905
+spring:
+  jpa:
+    ##不生成ddl语句
+    generate-ddl: false
+    ##显示sql
+    show-sql: true
+    ##jpa依赖于hibernate
+    hibernate:
+      ##启动时重新创建表 create
+      ddl-auto: update
+  datasource:
+    ##使用h2数据库
+    platform: h2
+    ##初始化表结构
+    schema: classpath:schema/schema.sql
+    ##初始化数据
+    data: classpath:schema/data.sql
+  application:
+    ##应用名称建议全使用小写
+    name: microservice-provider-user
+logging:
+  ##日志级别
+  level:
+    ##根级别显示info
+    root: INFO
+    ##下面三行表显示sql并把参数打印出来
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    ##application下显示DEBUG
+    com.wonders: DEBUG
+eureka:
+  client:
+    healthcheck:
+      #使用health端点来代替心跳表明服务是否可用，反应到eureka server ui上服务是的UP还是DOWN
+      enabled: true
+    serviceUrl:
+      ##支持并连接Ureka服务端
+      defaultZone: http://user:password123@localhost:8761/eureka
+  instance:
+    ##默认使用主机名称访问设置成使用IP地址做为服务提供路径
+    prefer-ip-address: true
+    ##使用“应用名称：实例IE：端口号”的组合显示实例ID
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+
+##配置actuator监控系统健康情况
+management:
+  endpoints:
+    web:
+      exposure:
+        ##测试环境下暴露所有端点(暴露/health等路径，系统健康信息等全部暴露不太安全)  * 在yaml 文件属于关键字，所以需要加引号
+        include: "*"
