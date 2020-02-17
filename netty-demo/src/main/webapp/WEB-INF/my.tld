@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+	<description>A tag library exercising SimpleTag handlers.</description>
+	<tlib-version>1.0</tlib-version>
+	<!-- 自定义一个简写的标签名称 -->
+	<short-name>myTag</short-name>
+	<!-- 将自定义的tld文件绑定到uri上，jsp引用自定义标签库时需要注明该URI -->
+	<uri>http://com.wonders.demo/myTag</uri>
+	<tag>
+		<!-- 注释 -->
+		<description>转义标签</description>
+		<!-- 为标签描述类指定一个名字 引用时后缀使用该名称:  <myTag:htmlFilter/> -->
+		<name>htmlFilter</name>
+		<!-- 需要描述的标签处理类路径 -->
+		<tag-class>com.wonders.web.tags.MyIpTag</tag-class>
+		<!-- 定义标签体的内容为JSP内容，SImple标签不支持JSP，如果内容为JSP则写成scriptless -->
+		<body-content>scriptless</body-content>
+	</tag>
+</taglib>
