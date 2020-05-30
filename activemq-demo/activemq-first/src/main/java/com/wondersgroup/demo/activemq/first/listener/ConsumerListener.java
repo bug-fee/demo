@@ -28,6 +28,8 @@ public class ConsumerListener {
             session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);
             destination = session.createQueue("test-listener");
             consumer = session.createConsumer(destination);
+            //超时，连接超时。不是确认超时，是等待多久后，没有消息可处理，超时。
+//            consumer.receive(timeout);
             //注册监听器。注册成功后，队列中的消息变化会自动触发监听器代码。接收消息并处理
             consumer.setMessageListener(new MessageListener() {
                 /*

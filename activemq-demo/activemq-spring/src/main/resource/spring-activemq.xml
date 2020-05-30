@@ -1,0 +1,67 @@
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:amq="http://activemq.apache.org/schema/core"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:jms="http://www.springframework.org/schema/jms"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+         http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-3.0.xsd">
+
+    <!--注解扫描器-->
+    <context:component-scan base-package="com.wondersgroup.*">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--连接到ActiveMQ，创建一个ConnectionFactory-->
+    <bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory"
+          p:brokerURL="tcp://192.168.42.234:61616"
+          p:userName="admin"
+          p:password="admin"
+    ></bean>
+
+    <!--配置池化的ConnectionFactory。为连接ActiveMQ的connectionFactory提供连接池-->
+    <bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory">
+        <property name="connectionFactory" ref="amqConnectionFactory"></property>
+        <!--设置支持最大连接数-->
+        <property name="maxConnections" value="10"></property>
+    </bean>
+
+    <!--对上步创建的ConnectionFactory进行缓存包装，这样做的目的是提升性能，对sessions, connections 和 producers进行缓存复用，减少开销-->
+    <bean id="cachedConnectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <property name="targetConnectionFactory" ref="pooledConnectionFactory"></property>
+        <!--设置session缓存个数(示例值),如果连接工厂是生产者使用，那么sessionSize的数量影响到并发的性能,如果是消费者使用，那么这个设置没有影响-->
+        <!--seesion是仅次于连接的昂贵资源，频繁的开启关闭session会影响到性能，CachingConnectionFactory能够将session缓存起来，供于下一次使用，至于缓存个数的设置，消费端的设置，建议与consumer的最大个数保持一致，注意，CachingConnectionFactory工厂只能创建一个连接，并且保持连接，供多个spring监听使用-->
+        <property name="sessionCacheSize" value="3"></property>
+    </bean>
+
+    <!--创建消息目的地，constructor-arg是目的地名称-->
+    <bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">
+        <!--消息队列名称-->
+        <constructor-arg value="FOO.TEST"/>
+    </bean>
+    <!--构建JmsTemplate-->
+    <bean id="producerTemplate" class="org.springframework.jms.core.JmsTemplate"
+          p:connectionFactory-ref="cachedConnectionFactory"
+          p:defaultDestination-ref="destination"></bean>
+
+    <!--对于消息的消费者，Spring官方提供了一个叫 DMLS(DefaultMessageListenerContainer)的容器，它能有效克制MDB(Message Driven Beans)的缺点。
+        要使用这个容器，我们需要创建自己的监听器(下面会提及)，并且注册进容器中，这样一旦目的地有消息，就会自动触发监听事件
+        其中，connection-factory与前面用org.apache.activemq.ActiveMQConnectionFactory包创建的bean的id对应，listener标签中destination填前面创建的目的地名称，ref填listener的bean id。-->
+    <!-- acknowledge - 消息确认机制
+         container-type- 容器类型，默认为default
+                        DefaultContainerType SingleContainerType
+         destination-type - 目的地类型。使用队列作为目的地。
+         connection-factory-链接工厂，spring-jms使用的链接工厂，必须是spring自主创建的不能使用三方工具创建的工厂，如ActiveMQConnectionFactory
+     -->
+    <jms:listener-container
+            container-type="default"
+            connection-factory="amqConnectionFactory"
+            acknowledge="auto">
+        <jms:listener destination="FOO.TEST" ref="simpleMsgListener" method="onMessage"></jms:listener>
+    </jms:listener-container>
+</beans>
