@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.repairs.dao.UserDao">
+	<resultMap type="com.repairs.bo.Userbo" id="userResultMap">
+		<id property="id" column="id" />
+		<result property="openId" column="openId" />
+		<result property="name" column="name" />
+		<result property="gender" column="gender" />
+		<result property="tell" column="tell" />
+		<result property="userName" column="userName" />
+		<result property="password" column="password" />
+		<result property="floorName" column="floorName" />
+		<result property="roomName" column="roomName" />
+		<result property="workTell" column="workTell" />
+		<result property="subDeptName" column="subDeptName" />
+		<result property="headimgurl" column="headimgurl"/>
+		<association property="campus" column="campusId" javaType="CampusBo"
+			select="findCampusById">
+			<id property="id" column="id" />
+			<result property="name" column="name" />
+		</association>
+	</resultMap>
+
+	<select id="findCampusById" parameterType="int" resultType="Campusbo">
+		select * from campus where id=#{id};
+	</select>
+
+	<select id="selectUser" parameterType="Userbo" resultMap="userResultMap">
+		SELECT * FROM user
+		<trim prefix="where" suffixOverrides="and | or">
+			<if test="id!=null">id=#{id} AND</if>
+			<if test="openId!=null">openId=#{openId} AND</if>
+			<if test="name!=null">name=#{name} AND</if>
+			<if test="gender!=null">gender=#{gender} AND</if>
+			<if test="tell!=null">tell=#{tell} AND</if>
+			<if test="createTime!=null">createTime=#{createTime} AND</if>
+			<if test="campus!=null and campus.id!=null">campusId=#{campus.id} AND</if>
+		</trim>
+		<if test="offset!=null and limit!=null">LIMIT #{offset},#{limit}</if>
+	</select>
+
+	<delete id="deleteUser" parameterType="Userbo">
+		DELETE FROM user where
+		<trim suffixOverrides="and | or">
+			<if test="id!=null">id=#{id} AND</if>
+			<if test="openId!=null">openId=#{openId} AND</if>
+			<if test="name!=null">name=#{name} AND</if>
+			<if test="gender!=null">gender=#{gender} AND</if>
+			<if test="tell!=null">tell=#{tell} AND</if>
+			<if test="createTime!=null">createTime=#{createTime} AND</if>
+			<if test="campus!=null and campus.id!=null">campusId=#{campus.id} AND</if>
+		</trim>
+	</delete>
+
+	<insert id="insertUser" parameterType="Userbo">
+		INSERT INTO user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="openId!=null">openId,</if>
+			<if test="name!=null">name,</if>
+			<if test="gender!=null">gender,</if>
+			<if test="tell!=null">tell,</if>
+			<if test="createTime!=null">createTime,</if>
+			<if test="campus!=null and campus.id!=null">campusId,</if>
+			<if test="floorName!=null">floorName,</if>
+			<if test="roomName!=null">roomName,</if>
+			<if test="workTell!=null">workTell,</if>
+			<if test="subDeptName!=null">subDeptName,</if>
+			<if test="headimgurl!=null">headimgurl,</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id!=null">#{id} ,</if>
+			<if test="openId!=null">#{openId} ,</if>
+			<if test="name!=null">#{name} ,</if>
+			<if test="gender!=null">#{gender} ,</if>
+			<if test="tell!=null">#{tell} ,</if>
+			<if test="createTime!=null">#{createTime} ,</if>
+			<if test="campus!=null and campus.id!=null">#{campus.id} ,</if>
+			<if test="floorName!=null">#{floorName} ,</if>
+			<if test="roomName!=null">#{roomName} ,</if>
+			<if test="workTell!=null">#{workTell} ,</if>
+			<if test="subDeptName!=null">#{subDeptName} ,</if>
+			<if test="headimgurl!=null">#{headimgurl} ,</if>
+		</trim>
+	</insert>
+
+	<update id="updateUser" parameterType="Userbo">
+		UPDATE user
+		<trim prefix="set" suffixOverrides=",">
+			<if test="openId!=null">openId=#{openId} ,</if>
+			<if test="name!=null">name=#{name} ,</if>
+			<if test="gender!=null">gender=#{gender} ,</if>
+			<if test="tell!=null">tell=#{tell} ,</if>
+			<if test="headimgurl!=null">headimgurl=#{headimgurl} ,</if>
+			<if test="createTime!=null">createTime=#{createTime} ,</if>
+			<if test="campus!=null and campus.id!=null">campusId=#{campus.id} ,</if>
+		</trim>
+		<trim prefix="where" suffixOverrides="and | or">
+			<if test="id!=null">id=#{id} AND</if>
+			<if test="openId!=null">openId=#{openId} AND</if>
+		</trim>
+	</update>
+	<update id="updateUserCampus">
+		update user set campusId=#{campusid} where id=#{userid}
+	</update>
+
+</mapper>

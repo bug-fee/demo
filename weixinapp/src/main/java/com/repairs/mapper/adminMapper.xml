@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.repairs.dao.AdminDao">
+	<resultMap type="com.repairs.bo.Adminbo" id="adminResultMap">
+		<id property="id" column="id" />
+		<result property="openId" column="openId" />
+		<result property="name" column="name" />
+		<result property="gender" column="gender" />
+		<result property="tell" column="tell" />
+		<result property="userName" column="userName" />
+		<result property="password" column="password" />
+		<result property="campusboId" column="campusboId"/>
+	</resultMap>
+
+	<select id="selectAdmin" parameterType="Adminbo" resultMap="adminResultMap">
+		SELECT * FROM admin
+		<trim prefix="where" suffixOverrides="and | or" >
+			<if test="id!=null">id=#{id} AND</if>
+			<if test="openId!=null">openId=#{openId} AND</if>
+			<if test="name!=null">name=#{name} AND</if>
+			<if test="gender!=null">gender=#{gender} AND</if>
+			<if test="tell!=null">tell=#{tell} AND</if>
+			<if test="userName!=null">userName=#{userName} AND</if>
+			<if test="password!=null">password=#{password} AND</if>
+		</trim>
+	</select>
+
+	<select id="selectAdminOne" parameterType="Adminbo" resultType="Adminbo">
+		select * from  admin  where  userName=#{userName} and password=#{password}
+	</select>
+	
+	<select id="selectAdminByUserId" parameterType="Adminbo" resultType="Adminbo">
+		select * from admin where id=#{id}
+	</select>
+
+
+	<insert id="insertAdmin" parameterType="Adminbo">
+		INSERT INTO admin
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="openId!=null">openId,</if>
+			<if test="name!=null">name,</if>
+			<if test="gender!=null">gender,</if>
+			<if test="tell!=null">tell,</if>
+			<if test="userName!=null">userName,</if>
+			<if test="password!=null">password,</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="openId!=null">#{openId},</if>
+			<if test="name!=null">#{name},</if>
+			<if test="gender!=null">#{gender},</if>
+			<if test="tell!=null">#{tell},</if>
+			<if test="userName!=null">#{userName},</if>
+			<if test="password!=null">#{password},</if>
+		</trim>
+	</insert>
+
+	<update id="updateAdmin" parameterType="Adminbo">
+		UPDATE admin
+		<trim prefix="set" suffixOverrides=",">
+			<if test="openId!=null">openId=#{openId} ,</if>
+			<if test="name!=null">name=#{name} ,</if>
+			<if test="gender!=null">gender=#{gender} ,</if>
+			<if test="tell!=null">tell=#{tell} ,</if>
+			<if test="userName!=null">userName=#{userName} ,</if>
+			<if test="password!=null">password=#{password} ,</if>
+		</trim>
+		where
+		<trim suffixOverrides="and | or">
+			<if test="id!=null">id=#{id} AND</if>
+			<if test="openId!=null">openId=#{openId} AND</if>
+		</trim>
+	</update>
+
+	<delete id="deleteAdmin" parameterType="Adminbo">
+		DELETE FROM admin where
+		<trim suffixOverrides="and | or">
+			<if test="id!=null">id=#{id} AND</if>
+			<if test="openId!=null">openId=#{openId} AND</if>
+			<if test="name!=null">name=#{name} AND</if>
+			<if test="gender!=null">gender=#{gender} AND</if>
+			<if test="tell!=null">tell=#{tell} AND</if>
+			<if test="userName!=null">userName=#{userName} AND</if>
+			<if test="password!=null">password=#{password} AND</if>
+		</trim>
+	</delete>
+	<delete id="delteAdminById" parameterType="int">
+		delete from admin where id=#{id};
+	</delete>
+	<select id="selectAdminAll" resultMap="adminResultMap">
+		select * from admin
+	</select>
+	
+	<select id="selectAdminPage" parameterType="Adminbo" resultMap="adminResultMap">
+		SELECT * FROM ADMIN LIMIT #{offset},#{limit}	
+	</select>
+
+	<select id="selectByCampusboId" resultMap="adminResultMap" >
+		SELECT * FROM ADMIN WHERE campusId = #{campusboId}
+	</select>
+
+	<select id="selectAdminByOpenId" resultMap="adminResultMap">
+		SELECT * FROM ADMIN WHERE openId=#{openId}
+	</select>
+</mapper>

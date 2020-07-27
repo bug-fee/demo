@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>用户管理</title>
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.0.1/css/jquery-weui.min.css">
+<link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+<!-- 搜索栏start -->
+<div class="weui-search-bar" id="searchBar">
+  <form class="weui-search-bar__form">
+	<div class="weui-search-bar__box">
+      <i class="weui-icon-search"></i>
+      <input type="search" class="weui-search-bar__input" id="servicemanInput" placeholder="搜索" >
+      <a href="javascript:" class="weui-icon-clear" id=""></a>
+      <label class="weui-search-bar__label" id="">
+        <i class="weui-icon-search"></i>
+        <span class="fl">请输入姓名关键字，搜索维修人员</span>
+      </label>
+	</div>
+  </form>
+  <a href="javascript:" class="weui-search-bar__cancel-btn" id="servicemanCancel">取消</a>
+  <a class="weui-search-bar__cancel-btn" id="servicemancommit" style="display: none;">搜索</a>
+</div>
+<!-- 搜索栏end -->
+<div class="expendent"></div>
+<!-- content start -->
+<div id="type"></div>
+<!-- 滚动加载 -->
+<div class="weui-loadmore" id="moreserviceman" style="display: none;">
+  <i class="weui-loading"></i>
+  <span class="weui-loadmore__tips">正在加载</span>
+</div>
+<div class="expendent"></div>
+<!-- footbar start -->
+<div class="weui-tab footer">
+  <div class="weui-tabbar">
+    <a href="myRepair_home_01.html" class="weui-tabbar__item">
+      <div class="weui-tabbar__icon">
+        <img src="../../icons/house_icon.png" alt="">
+      </div>
+      <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="myIndent_01.html" class="weui-tabbar__item">
+      <div class="weui-tabbar__icon">
+        <img src="../../icons/record_icon.png" alt="">
+      </div>
+      <p class="weui-tabbar__label">订单</p>
+    </a>
+    <a href="javascript:;" class="weui-tabbar__item weui-bar__item--on">
+      <div class="weui-tabbar__icon">
+        <img src="../../icons/idcard_icon.png" alt="">
+      </div>
+      <p class="weui-tabbar__label">用户组</p>
+    </a>
+    <a href="userCenter_01.html" class="weui-tabbar__item">
+      <div class="weui-tabbar__icon">
+        <img src="../../icons/seter_icon.png" alt="">
+      </div>
+      <p class="weui-tabbar__label">认证中心</p>
+    </a>
+  </div>
+</div>
+<!-- footbar end -->
+</body>
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/jquery-weui.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/swiper.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/city-picker.min.js"></script>
+<script src="../../js/config.js"></script>
+<script src="../../js/commons.js"></script>
+<script src="../../js/admin/usermanage_01.js"></script>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="css/layui.css" />
+		<style>
+			a:hover{
+				color:#009688;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="width: 1400px; height: 750px;margin:0px auto;">
+		<div style="margin:0px auto;background-image: url(images/logo_1.png);width: 900px;height: 130px;background-repeat: no-repeat;background-position-y: -1px"></div>
+		<div style="margin:0px auto;height: 80px; width: 600px;text-align: center;">
+			<span style="font-size: 40px;color:#2F4056;font-weight: 600;">报修管理平台</span>
+		</div>
+		<div style="margin:0px auto;width: 1280px;height: 540px;">
+		<div style="width: 50%;float: left;">
+	<form class="layui-form layui-form-pane" action="">
+ 	<table>
+ 	<tr>
+		 <td colspan="2">
+			<div class="layui-form-item">
+				<label class="layui-form-label">校区</label>
+				<div class="layui-input-block">
+					<select  id="campus" >
+						<option value=""></option>
+					</select>
+				</div>
+			</div>
+		</td>
+ 	</tr>
+ 	<tr>
+ 		<td>
+	 		 <div class="layui-form-item">
+	    		<label class="layui-form-label">报修人</label>
+	    		<div class="layui-input-inline">
+	     		 <input type="text" name="repairName" placeholder="姓名" autocomplete="off" class="layui-input">
+	    		</div>
+		 	 </div>
+ 		</td>
+ 		<td>
+	 		 <div class="layui-form-item">
+	    		<label class="layui-form-label">报修部门</label>
+	    		<div class="layui-input-inline">
+	     		 <input type="text"  name="subDeptName" placeholder="部门名称" autocomplete="off" class="layui-input">
+	    		</div>
+		 	 </div>
+ 		</td>
+ 	</tr>
+ 	<tr>
+ 		<td>
+	 		 <div class="layui-form-item">
+	    		<label class="layui-form-label">办公楼</label>
+	    		<div class="layui-input-inline">
+	     		 <input type="text"  name="floorName" placeholder="楼名称" autocomplete="off" class="layui-input">
+	    		</div>
+		 	 </div>
+ 		</td>
+ 		<td>
+	 		 <div class="layui-form-item">
+	    		<label class="layui-form-label">房间号</label>
+	    		<div class="layui-input-inline">
+	     		 <input type="text"  name="roomName"  placeholder="房间号" autocomplete="off" class="layui-input">
+	    		</div>
+		 	 </div>
+ 		</td>
+ 	</tr>
+ 	 <tr>
+ 	 	<td>
+	 		 <div class="layui-form-item">
+	    		<label class="layui-form-label">移动电话</label>
+	    		<div class="layui-input-inline">
+	     		 <input type="text"  name="mobileTell" placeholder="移动电话" autocomplete="off" class="layui-input">
+	    		</div>
+		 	 </div>
+ 		</td>
+ 		<td>
+	 		 <div class="layui-form-item">
+	    		<label class="layui-form-label">设备名称</label>
+	    		<div class="layui-input-inline">
+	     		 <input type="text"  name="facilityName" placeholder="设备名称" autocomplete="off" class="layui-input">
+	    		</div>
+		 	 </div>
+ 		</td>
+ 	</tr>
+ 	 	 <tr>
+ 	 	 <td>
+	 		 <div class="layui-form-item">
+	    		<label class="layui-form-label">设备型号</label>
+	    		<div class="layui-input-inline">
+	     		 <input type="text"  name="facilityModel" placeholder="设备型号" autocomplete="off" class="layui-input">
+	    		</div>
+		 	 </div>
+ 		</td>
+ 		<td>
+	 		 <div class="layui-form-item">
+	    		<label class="layui-form-label">设备数量</label>
+	    		<div class="layui-input-inline">
+	     		 <input type="text" name="facilityNum" placeholder="设备数量" autocomplete="off" class="layui-input">
+	    		</div>
+		 	 </div>
+ 		</td>
+ 	</tr>
+ 	<tr>
+ 		
+ 			<td colspan="2">
+	 		 <div class="layui-form-item">
+	    		<label class="layui-form-label">故障标题</label>
+	    		<div class="layui-input-block">
+	     		 <input type="text"  name="faultTitle" placeholder="故障标题" autocomplete="off" class="layui-input">
+	    		</div>
+		 	 </div>
+ 			</td>
+ 	</tr>
+ 	<tr>
+ 		<td colspan="2">
+		 	<div class="layui-form-item layui-form-text">
+			    <label class="layui-form-label">故障描述</label>
+			    <div class="layui-input-block">
+			      <textarea  id="faultDescribe" placeholder="请输入内容" class="layui-textarea" style="resize:none;"></textarea>
+			    </div>
+		  	</div>
+ 		</td>
+ 	</tr>
+ 	<tr>
+ 		<td align="center" colspan="2">
+ 			   <a class="layui-btn layui-btn-danger" id="sendRepair">立即报修</a>
+ 		</td>
+ 	</tr>
+ </table>	
+</form>
+</div>
+	
+	<div style="float: left;width: 50%;">
+		<table class="layui-table" lay-skin="row" style="margin-top: 0px;">
+			<colgroup>
+				<col width="150">
+				<col width="200">
+				<col>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>报修记录</th>
+				</tr>
+			</thead>
+			<tbody id="repairsContent">
+			
+			</tbody>
+		
+		</table>
+	</div>
+	</div>
+	<div style="margin: 0px auto;width:288px;height: 40px;line-height: 40px;">
+          <div >
+                <div style="font-size:14px;color:gray;">版权所有 &copy;河南牧业经济学院  2017&nbsp;<span><a href="login.html" style="color: #F7B824;">管理入口</a></span></div>
+          </div>
+	</div>
+	</div>
+	</body>
+	<script type="text/javascript" src="js/jquery.js" ></script>
+	<script type="text/javascript" src="lay/dest/layui.all.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+	<script type="text/javascript">
+		var form;
+		layui.use(['form', 'layedit', 'laydate', 'jquery', 'laytpl'], function () {
+        	form = layui.form(),
+            layer = layui.layer,
+            layedit = layui.layedit,
+            $=layui.jquery,
+            laydate = layui.laydate;
+		});
+	</script>
+	<script>
+		$(function(){
+			$.ajax({
+				type:"get",
+				url:myurl+"selectAllCampus.do",
+				dataType:"json",
+				success:function(res){
+				 $.each(res,function(index,item){
+							var $option = "<option value='"+item.id+"'>"+item.name+"</option>"
+							$("#campus").append($option);
+					});
+					form.render('select');
+					}
+				});
+			
+			$.ajax({
+				type:"post",
+				url:myurl+"selectNewsDetails.do",
+				data:{
+					'state':2,
+					'offset':0,
+					'limit':11,
+					'order':'desc',
+				},
+				dataType:'json',
+				success:function(res){
+					 $.each(res,function(index,item){
+							var $option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td></tr>"
+							$("#repairsContent").append($option);
+					});
+				}
+			})
+		});
+		
+	
+		$("#sendRepair").click(function(){
+			var campusId = $("#campus").val();
+			var repairName = $("input[name='repairName']").val();
+			var subDeptName = $("input[name='subDeptName']").val();
+			var floorName = $("input[name='floorName']").val();
+			var roomName = $("input[name='roomName']").val();
+			var mobileTell = $("input[name='mobileTell']").val();
+			var facilityName = $("input[name='facilityName']").val();
+			var facilityModel = $("input[name='facilityModel']").val();
+			var facilityNum = $("input[name='facilityNum']").val();
+			var faultTitle = $("input[name='faultTitle']").val();
+			var faultDescribe = $("#faultDescribe").val();
+			
+			if(campusId!=""&&repairName!=""&&subDeptName!=""&&floorName!=""&&roomName!=""&&workTell!=""&&facilityName!=""&&facilityModel!=""&&facilityNum!=""&&faultTitle!=""&&faultDescribe!=""){
+				
+				$.ajax({
+				   type:"POST",
+				   url:myurl+"insertReapirByPC.do",
+				   data:{
+				   	 'campus.id':campusId,
+				   	 'repairName':repairName,
+				   	 'subDeptName':subDeptName,
+				   	 'floorName':floorName,
+				   	 'roomName':roomName,
+				   	 'mobileTell':mobileTell,
+				   	 'facilityName':facilityName,
+				   	 'facilityModel':facilityModel,
+				   	 'facilityNum':facilityNum,
+				   	 'faultTitle':faultTitle,
+				   	 'faultDescribe':faultDescribe,
+				   	 'state':0,
+				   },
+				   dataType:'json',
+				   success:function(res){
+				   	if(res.success){
+				   		alert("报修成功");
+				   		window.location.reload();
+				   	}else{
+				   		alert("报修失败");
+				   	}
+				   }
+				});
+			}else{
+				alert("请输入必要的数据再提交");
+			}
+		});
+	</script>
+</html>

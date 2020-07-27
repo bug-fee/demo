@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>个人中心</title>
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.0.1/css/jquery-weui.min.css">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<!-- content start -->
+<div class="item">
+	<div class="weui-cells hasbotop hasbottom notopmar">
+	  <div class="weui-cell">
+	    <div class="weui-cell__bd">
+	      <p>申报信息<span class="serianolef" id="seriano"></span></p>
+	    </div>
+	  </div>
+	</div>
+	<div class="weui-form-preview whiter hasbottom">
+	  <div class="weui-form-preview__bd">
+	    <div class="weui-form-preview__item">
+	      <label class="weui-form-preview__label">设备名称</label>
+	      <span class="weui-form-preview__value"><strong id="facilityName"></strong></span>
+	    </div>
+	    <div class="weui-form-preview__item">
+	      <label class="weui-form-preview__label">设备数量</label>
+	      <span class="weui-form-preview__value"><strong id="facilityNum"></strong></span>
+	    </div>
+	    <div class="weui-form-preview__item">
+	      <label class="weui-form-preview__label">故障标题</label>
+	      <span class="weui-form-preview__value"><strong id="faultTitle"></strong></span>
+	    </div>
+	    <div class="weui-form-preview__item">
+	      <label class="weui-form-preview__label">申请时间</label>
+	      <span class="weui-form-preview__value"><strong id="subTime"></strong></span>
+	    </div>
+	    <div class="weui-form-preview__item">
+	      <label class="weui-form-preview__label">报修人</label>
+	      <span class="weui-form-preview__value"><strong id="userName"></strong></span>
+	    </div>
+	    <div class="weui-form-preview__item">
+	      <label class="weui-form-preview__label">提交部门</label>
+	      <span class="weui-form-preview__value"><strong id="subDeptName"></strong></span>
+	    </div>
+	    <div class="weui-form-preview__item">
+	      <label class="weui-form-preview__label">联系电话</label>
+	      <span class="weui-form-preview__value"><strong id="userTell"></strong></span>
+	    </div>
+	   	<div class="weui-form-preview__item">
+	      <label class="weui-form-preview__label">所属校区</label>
+	      <span class="weui-form-preview__value"><strong id="campusName"></strong></span>
+	    </div>
+	    <div class="weui-form-preview__item">
+	      <label class="weui-form-preview__label">楼</label>
+	      <span class="weui-form-preview__value"><strong id="buildingName"></strong></span>
+	    </div>
+	    <div class="weui-form-preview__item">
+	      <label class="weui-form-preview__label">房间号</label>
+	      <span class="weui-form-preview__value"><strong id="roomName"></strong></span>
+	    </div>
+	  </div>
+	</div>
+</div>
+<div class="item">
+	<div class="weui-cells hasbotop hasbottom">
+	  <div class="weui-cell">
+	    <div class="weui-cell__bd">
+	      <p>报修信息</p>
+	    </div>
+	  </div>
+	</div>
+	<div class="weui-form-preview whiter hasbottom">
+	  <div class="weui-form-preview__bd">
+	    <div class="weui-form-preview__item">
+	      <label class="weui-form-preview__label">报修状态：</label>
+	      <span class="weui-form-preview__value"><strong id="state" class="redcolor"></strong></span>
+	    </div>
+	    <div class="weui-form-preview__item">
+	      <label class="weui-form-preview__label">维修人员：</label>
+	      <span class="weui-form-preview__value"><strong id="serviceManName"></strong></span>
+	    </div>
+	    <div class="weui-form-preview__item">
+	      <label class="weui-form-preview__label">联系电话：</label>
+	      <span class="weui-form-preview__value"><strong id="serviceManTell"></strong></span>
+	    </div>
+	  <div class="weui-form-preview__item">
+	      <label class="weui-form-preview__label">受理日期：</label>
+	      <span class="weui-form-preview__value"><strong id="receiptTime"></strong></span>
+	    </div>
+	    <div class="weui-form-preview__item">
+	      <label class="weui-form-preview__label">结束日期：</label>
+	      <span class="weui-form-preview__value"><strong id="endTime"></strong></span>
+	    </div>
+	    <div class="weui-form-preview__item">
+	      <label class="weui-form-preview__label">维修费用：</label>
+	      <span class="weui-form-preview__value"><strong id="charge"></strong></span>
+	    </div>
+	  </div>
+	</div>
+</div>
+<a href="javascript:;" class="weui-btn namebutton upd" style="background-color:#67B5FF;"></a>
+<!-- content end -->
+</body>
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="../js/config.js"></script>
+<script src="../js/commons.js"></script>
+<script type="text/javascript" src="../js/01repair_detailes.js"></script>
+</html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.repairs.dao.CampusDao">
+	<resultMap type="com.repairs.bo.Campusbo" id="campusResultMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+	</resultMap>
+
+	<select id="selectAllCampus" resultMap="campusResultMap">
+		select * from campus
+	</select>
+
+	<select id="selectCampus" parameterType="Campusbo" resultMap="campusResultMap">
+		SELECT * FROM campus
+		<trim prefix="where" suffixOverrides="and | or">
+			<if test="id!=null">id=#{id} AND</if>
+			<if test="name!=null">name=#{name} AND</if>
+		</trim>
+	</select>
+	
+	<insert id="insertCampus" parameterType="Campusbo">
+		INSERT INTO campus
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name!=null">name,</if>
+		</trim>
+		VALUES
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name!=null">#{name},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteCampus">
+		DELETE FROM campus where
+		<trim suffixOverrides="and | or">
+			<if test="id!=null">id=#{id} AND</if>
+			<if test="name!=null">name=#{name} AND</if>
+		</trim>
+	</delete>
+
+	<update id="updateCampus" parameterType="Campusbo">
+		UPDATE campus
+		<trim prefix="set" suffixOverrides=",">
+			<if test="id!=null">id=#{id} ,</if>
+			<if test="name!=null">name=#{name} ,</if>
+		</trim>
+		where
+		<trim suffixOverrides="and | or">
+			<if test="id!=null">id=#{id} AND</if>
+			<if test="name!=null">name=#{name} AND</if>
+		</trim>
+	</update>
+	
+</mapper>

@@ -1,0 +1,288 @@
+zbody{
+	background-color:#FAFAFA
+}
+.logo{
+	 background-image: url('../icons/logo.png');
+	 width: 100%;
+	 height: 97px;
+	 background-size:100% 100%;
+}
+.usdatile{
+	width:20px;
+	margin-right:5px;
+	display:block;
+}
+.minimatop{
+	margin-top: 8px;
+}
+.texcent{
+	text-align:center;
+}
+.linear{
+	background-color:white;
+	height:3px;
+	width:100%;
+	position:relative;
+	top:10px;
+}
+#searchBar{
+	position:fixed;
+	top:0px;
+	left:0px;
+	right:0px;
+	z-index:99;
+}
+.clear{
+	clear:both;
+}
+.bluer{
+	background-color:#66B3F7;
+	height:3px;
+	width:100%;
+	position:relative;
+	top:10px;
+}
+.item{
+	margin-bottom:10px;
+}
+.centire{
+	text-align:center;
+}
+.weui-form-preview {
+    position: relative;
+    background-color: #FAFAFA;
+}
+.notopmar{
+	margin-top:0px;
+}
+.hasbottom{
+	 border-bottom: 1px solid #d9d9d9;
+}
+.serianolef{
+	position:absolute;
+	right:10px;
+	color:#E64340;
+}
+.redcolor{
+	color:#E64340;
+}
+.bindbtn{
+	margin-top:25px;
+}
+.seudeta{
+	 width:110px;
+	 height:110px;
+	 border-radius:60px;
+	 margin-top:30px;
+}
+.serianotit{
+	position:absolute;
+	left:35%;
+	color:white;
+}
+.bacgray{
+	background-color:#E2E1DF;
+}
+.hasbotop{
+	 border-top: 1px solid #d9d9d9;
+}
+.bluerbun{
+	background-colr:#67B5FF;
+}
+.item .bott{
+	padding-left: 35px;
+    padding-right: 35px;
+    font-size:10px;
+}
+.expendent{
+	height:45px;
+}
+.headerline{
+	height:70px;
+}
+.manheaderline{
+	height:50px;
+}
+.useheadline{
+	height:70px;
+}
+.footer{
+	position:fixed;
+	bottom:0px;
+	width:100%;
+}
+.item .weui-cells:before {
+    top: 0;
+    border-top: 0px solid #d9d9d9;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+}
+.fullback{
+	width:14;
+	height:17px;
+}
+.weui-tab {
+    height: 0%;
+}
+.weui-cells:after {
+    bottom: 0;
+    border-bottom: 0px solid #d9d9d9;
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+}
+.item .weui-form-preview:before {
+    top: 0;
+    border-top: 0px solid #d9d9d9;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+}
+.item .weui-form-preview:after {
+    bottom: 0;
+    border-bottom: 0px solid #d9d9d9;
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+}
+.item .weui-form-preview__bd {
+    padding: 10px 15px;
+    font-size: .9em;
+    text-align: right;
+    color: black;
+    line-height: 2;
+}
+.item .weui-btn_plain-primary {
+    color: #FDB882;
+    border: 1px solid #FDB882;
+}
+.fl{
+	position:absolute;
+	left:35px;
+	top:3px;
+}
+.whiter{
+	background-color:white;
+}
+.weui-actionsheet__cell {
+	color:green;
+}
+.celtopborder{
+	border-top: 1px solid #d9d9d9;
+	margin-top:10px;
+}
+.weui-grid {
+    position: relative;
+    float: left;
+    padding: 20px 10px;
+    width: 25%;
+    box-sizing: border-box;
+}
+.servicecen .weui-grid {
+    position: relative;
+    float: left;
+    padding: 20px 10px;
+    width: 33.33333%;
+    box-sizing: border-box;
+}
+.short{
+	margin-top:10px;
+}
+.short .weui-cell {
+    padding: 5px 15px;
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+.limited{
+	color:#353535;
+	font-size:12px;
+}
+.messright{
+	position:relative;
+	left:25px;
+}
+.imglef{
+	position:absolute;
+	left:12px;
+	top:47%;
+}
+.contentcells {
+    margin-top: 0px;
+    background-color: #fff;
+    line-height: 1.41176471;
+    font-size: 17px;
+    overflow: hidden;
+    position: relative;
+}
+.identcon{
+	color:#999;
+	font-size:12px;
+	margin-top: 10px;
+}
+.serianutit{
+	color: rgba(61, 65, 69, 0.84);
+}
+.userdeta{
+	serianutit;
+}
+.userheader{
+	position:absolute;
+	top:10px;
+	width:70px;
+	height:70px;
+	border-radius:34px;
+}
+.Manaheader{
+	position:absolute;
+	top:10px;
+	width:50px;
+	height:50px;
+	border-radius:34px;
+}
+.fullbacklef{
+	position:absolute;
+	left:35px;
+	color:white;
+}
+.namebutton{
+	width:95%;
+	margin-top:30px;
+}
+.headimglef{
+	position:absolute;
+	top:10px;
+	width:70px;
+	height:70px;
+	right:45px;
+	border-radius:34px;
+}
+.headdatile{
+	text-size:15px;
+}
+.ninecells .weui-grid{
+	width:25%;
+}
+.modifiydatum{
+	color:white;
+	position:absolute;
+	left:40%;
+}
+.modifiylogilef{
+	color:white;
+	position:absolute;
+	left:40%;
+}
+.fixedsearch{
+	 position:fixed;
+	 width:100%;
+}

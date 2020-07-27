@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta charset="UTF-8">
+    <title>打印预览</title>
+	<link rel="stylesheet" href="css/layui.css" />
+	<style type="text/css">
+		.print-noshow {
+			display: none;
+		}
+		@media print {
+		 .noprint { display: none } 
+		 .print-noshow {
+		    display: block ;
+		    z-index: 999;
+		  }
+		}
+	</style>
+  </head>
+  	
+  <body>
+		<div style="width: 800px;height: 750px;margin: auto;">
+			<div class="print" style="margin:10px auto;height: 50px;width: 200px;">
+				<a  onClick='window.print();' class="layui-btn layui-btn-normal">打印</a>
+				<a  onClick='window.close();' class="layui-btn layui-btn-normal">取消</a>
+			</div>
+			<div style="margin: 10px auto;height: 650px;width: 750px;">
+			<form class="layui-form layui-form-pane">
+				<table  style="margin:20px auto">
+					<tr>
+						<td colspan="2">
+							<div class="layui-form-item">
+								<label class="layui-form-label">报修单号</label>
+								<div class="layui-input-block">
+									<input name="seriano" type="text"  autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div class="layui-form-item">
+								<label class="layui-form-label">校区</label>
+								<div class="layui-input-block">
+									<input id="campus" type="text"  autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="layui-form-item">
+								<label class="layui-form-label">报修人</label>
+								<div class="layui-input-inline">
+									<input name="user" type="text"  autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="layui-form-item">
+								<label class="layui-form-label">报修部门</label>
+								<div class="layui-input-inline">
+									<input name="subDeptName" type="text"  autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+						</td>
+					</tr>
+						<tr>
+						<td colspan="2">
+							<div class="layui-form-item">
+								<label class="layui-form-label">是否解决</label>
+								<div class="layui-input-block">
+									<input id="stateRepair" type="text"  autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="layui-form-item">
+								<label class="layui-form-label">维修人</label>
+								<div class="layui-input-inline">
+									<input name="serviceman" type="text"  autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="layui-form-item">
+								<label class="layui-form-label">维修人电话</label>
+								<div class="layui-input-inline">
+									<input name="tell" type="text" autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+					<td>
+						<div class="layui-form-item">
+							<label class="layui-form-label">维修费用</label>
+							<div class="layui-input-inline">
+								<input name="charge" type="number"  autocomplete="off" class="layui-input" disabled="disabled">
+							</div>
+						</div>
+					</td>
+					<td>
+							<div class="layui-form-item">
+								<label class="layui-form-label">费用来源</label>
+								<div class="layui-input-inline">
+									<input name="chargeSource" type="text"  autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+					</td>
+					</tr>
+					<tr>
+					<td colspan="2">
+							<div class="layui-form-item">
+								<label class="layui-form-label" id="signatureDepartment" style="width: auto;"></label>
+								<div class="layui-input-inline" style="width: 75%">
+									<input  type="text"  autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+						</td>
+					</tr>
+
+				</table>
+			</form>
+			</div>
+			
+		</div>
+  </body>
+  <script type="text/javascript" src="js/jquery.js" ></script>
+  <script type="text/javascript" src="lay/dest/layui.all.js" ></script>
+  <script type="text/javascript" src="js/config.js" ></script>
+  <script type="text/javascript">
+		var form;
+		layui.use(['form', 'layedit', 'laydate', 'jquery', 'laytpl'], function () {
+        	form = layui.form(),
+            layer = layui.layer,
+            layedit = layui.layedit,
+            $=layui.jquery,
+            laydate = layui.laydate;
+		});
+  </script>
+  <script type="text/javascript">
+  			$(function(){
+  				var id = GetQueryString('id');
+  				 $.ajax({
+			  	 type:"post",
+			  	 url:myurl+"selectNewsDetails.do",
+			  	 data:{
+			  	 	'id':id,
+			  	 },
+			  	 dataType:"json",
+			  	 success:function(res){
+			  	  $.each(res,function(index,item){
+			  	  		 $("input[name='seriano']").val(item.seriano);
+			  	 		 $("#campus").val(item.campus.name);
+			  	 		 $("#stateRepair").val(stateRepair[item.state]);
+			  	 		  if(item.repairName!=""){
+ 						  	 $("input[name='user']").val(item.repairName);
+ 						  }else{
+ 						  	  $("input[name='user']").val(item.user.name);
+ 						  }
+ 						  $("input[name='subDeptName']").val(item.subDeptName);
+ 						  if(item.serviceman!=null){
+						  	  $("input[name='serviceman']").val(item.serviceman.name);
+						  	  $("input[name='tell']").val(item.serviceman.tell);
+						  }else{
+						  	  $("input[name='serviceman']").val(item.adminbo.name);
+						  	  $("input[name='tell']").val(item.adminbo.tell);
+						  }
+						  $("input[name='charge']").val(item.charge);
+						  $("input[name='chargeSource']").val(item.chargeSource);
+						  $("#signatureDepartment").text(item.signatureDepartment);
+						});
+						form.render('select'); 
+			  	 	}
+			  	 })
+  			})
+  			
+  
+  </script>
+</html>

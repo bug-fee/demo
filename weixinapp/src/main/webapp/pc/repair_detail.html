@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>报修详情</title>
+		
+		<link rel="stylesheet" href="css/layui.css" />
+	</head>
+	<body>
+		<div style="width: 1400px; height: 750px;margin:0px auto;">
+		<div style="margin:0px auto;background-image: url(images/logo_1.png);width: 900px;height: 130px;background-repeat: no-repeat;background-position-y: -1px"></div>
+		<div style="margin:0px auto;height: 80px; width: 600px;text-align: center;">
+			<p><span style="font-size: 40px;color:#2F4056;font-weight: 600;">报修管理平台</span></p>
+		</div>
+		<div style="margin:0px auto;width: 1280px;height: 540px;">
+		<div style="width: 50%;float: left;">
+			<form class="layui-form layui-form-pane" action="">
+				<table>
+					<tr>
+						<td colspan="2">
+							<div class="layui-form-item">
+								<label class="layui-form-label">校区</label>
+								<div class="layui-input-block">
+									<select id="campus" disabled="disabled">
+										<option value=""></option>
+									</select>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="layui-form-item">
+								<label class="layui-form-label">报修人</label>
+								<div class="layui-input-inline">
+									<input name="user" type="text" placeholder="报修人姓名" autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="layui-form-item">
+								<label class="layui-form-label">报修部门</label>
+								<div class="layui-input-inline">
+									<input name="subDeptName" type="text" placeholder="部门名称" autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="layui-form-item">
+								<label class="layui-form-label">办公楼</label>
+								<div class="layui-input-inline">
+									<input name="floorName" type="text" placeholder="楼名称" autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="layui-form-item">
+								<label class="layui-form-label">房间号</label>
+								<div class="layui-input-inline">
+									<input name="roomName" type="text" placeholder="房间号" autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="layui-form-item">
+								<label class="layui-form-label">办公电话</label>
+								<div class="layui-input-inline">
+									<input name="workTell" type="text" placeholder="办公电话" autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="layui-form-item">
+								<label class="layui-form-label">设备名称</label>
+								<div class="layui-input-inline">
+									<input name="facilityName" type="text" placeholder="设备名称" autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="layui-form-item">
+								<label class="layui-form-label">设备型号</label>
+								<div class="layui-input-inline">
+									<input name="facilityModel" type="text" placeholder="设备型号" autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="layui-form-item">
+								<label class="layui-form-label">设备数量</label>
+								<div class="layui-input-inline">
+									<input name="facilityNum" type="number" placeholder="设备数量" autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+			
+						<td colspan="2">
+							<div class="layui-form-item">
+								<label class="layui-form-label">故障标题</label>
+								<div class="layui-input-block">
+									<input name="faultTitle" type="text" placeholder="故障标题" autocomplete="off" class="layui-input" disabled="disabled">
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div class="layui-form-item layui-form-text">
+								<label class="layui-form-label">故障描述</label>
+								<div class="layui-input-block">
+									<textarea id="faultDescribe"  placeholder="请输入内容" class="layui-textarea" style="resize:none;" disabled="disabled"></textarea>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</form>
+			</div>
+			
+			<div style="float: left;width: 50%;">
+					<form class="layui-form layui-form-pane" action="">
+				<table>
+					<tr>
+						<td>
+							<div class="layui-form-item">
+								<label class="layui-form-label">是否解决</label>
+								<div class="layui-input-inline">
+									<select id="state" >
+										<option value=""></option>
+										<option value="4">未解决</option>
+										<option value="2">已解决</option>
+									</select>
+								</div>
+							</div>
+						</td>
+						<td>
+							<div class="layui-form-item">
+								<label class="layui-form-label">维修人</label>
+								<div class="layui-input-inline">
+									<select id="serviceman">
+										<option value=""></option>
+									</select>
+								</div>
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<td colspan="2">
+							<div class="layui-form-item">
+								<label class="layui-form-label">维修时间</label>
+								<div class="layui-input-block">
+									 <input name="endTime" type="text" class="layui-input" name="birthday" placeholder="维修时间" id="birthday" />
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div class="layui-form-item layui-form-text">
+								<label class="layui-form-label">维修内容</label>
+								<div class="layui-input-block">
+									<textarea id="maintenanceContent"  placeholder="请输入内容" class="layui-textarea" style="resize:none;"></textarea>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<td colspan="2">
+						<div class="layui-form-item">
+							<label class="layui-form-label">维修费用</label>
+							<div class="layui-input-block">
+								<input name="charge" id="charge" type="number" placeholder="费用" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+					</td>
+					<tr>
+						<td colspan="2">
+							<div class="layui-form-item layui-form-text">
+								<label class="layui-form-label">未解决原因</label>
+								<div class="layui-input-block">
+									<textarea id="defeatedreason" placeholder="请输入内容"  class="layui-textarea" style="height: 106px;resize:none;"></textarea>
+								</div>
+							</div>
+						</td>
+					</tr>
+				
+					<tr>
+						<td align="right" colspan="2">
+							<a class="layui-btn layui-btn-normal" id="submit_btn">提交</a>
+							<a onclick="javascript:history.go(-1)" class="layui-btn layui-btn-normal">返回</a>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<input type="hidden" id="RepairMan" />	
+			</div>
+			</div>
+				<div style="margin: 0px auto;width:288px;height: 40px;line-height: 40px;">
+          <div >
+                <div style="font-size:14px;color:gray;">版权所有 &copy;河南牧业经济学院  2017&nbsp;<span></div>
+          </div>
+	</div>
+		</div>
+	</body>
+	
+	<script type="text/javascript" src="js/jquery.js" ></script>
+	<script type="text/javascript" src="lay/dest/layui.all.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+	<script>
+	layui.use('laydate', function(){
+  var laydate = layui.laydate;
+  
+  var start = {
+  	 format: 'YYYY-MM-DD hh:mm:ss'
+    ,min: '1930-01-01 00:00:00'
+    ,max: '2099-06-16 23:59:59'
+    ,start:laydate.now()
+    ,istoday: false
+    ,choose: function(datas){
+      end.min = datas; //开始日选好后，重置结束日的最小日期
+      end.start = datas //将结束日的初始值设定为开始日
+    }
+  };
+  
+		  var end = {
+		    min: laydate.now()
+		    ,max: '2099-06-16 23:59:59'
+		    ,istoday: false
+		    ,choose: function(datas){
+		      start.max = datas; //结束日选好后，重置开始日的最大日期
+		    }
+		  };
+		  document.getElementById('birthday').onclick = function(){
+		    start.elem = this;
+		    laydate(start);
+		  }
+		});
+		
+		var form;
+		layui.use(['form', 'layedit', 'laydate', 'jquery', 'laytpl'], function () {
+        	form = layui.form(),
+            layer = layui.layer,
+            layedit = layui.layedit,
+            $=layui.jquery,
+            laydate = layui.laydate;
+		});
+</script>
+
+
+<script type="text/javascript">
+		$(function(){
+			
+			getInfo();
+			
+		});
+		
+		function getInfo(){
+			var id =  GetQueryString('id');
+			  $.ajax({
+			  	 type:"post",
+			  	 url:myurl+"selectNewsDetails.do",
+			  	 data:{
+			  	 	'id':id,
+			  	 },
+			  	 dataType:"json",
+			  	 	 success:function(res){
+			  	 	 $.each(res,function(index,item){
+ 						  $("#campus").append("<option value='"+item.campus.id+"' selected='selected'>"+item.campus.name+"<option>");
+ 						  //getRepair(item.campus.id);
+ 						  $("#serviceman").append("<option value='"+item.adminbo.id+"' selected='selected'>"+item.adminbo.name+"<option>");
+ 						  if(item.repairName!=""){
+ 						  	 $("input[name='user']").val(item.repairName);
+ 						  }else{
+ 						  	  $("input[name='user']").val(item.user.name);
+ 						  }
+ 					 	  $("input[name='subDeptName']").val(item.subDeptName);
+						  $("input[name='floorName']").val(item.floorName);
+						  $("input[name='roomName']").val(item.roomName);
+						  $("input[name='workTell']").val(item.workTell);
+						  $("input[name='facilityName']").val(item.facilityName);
+						  $("input[name='facilityModel']").val(item.facilityModel);
+						  $("input[name='facilityNum']").val(item.facilityNum);
+						  $("input[name='faultTitle']").val(item.faultTitle);
+						  $("#faultDescribe").val(item.faultDescribe);
+						  if(item.adminbo!=null){
+						  	 $("input[name='serviceman']").val(item.adminbo.name);
+						  }
+						  $("input[name='endTime']").val(item.endTime);
+						  $("#maintenanceContent").val(item.maintenanceContent);
+						  $("input[name='charge']").val(item.charge);
+						  $("#defeatedreason").val(item.defeatedreason); 
+					});
+					form.render('select'); 
+			  	 }
+			  });
+		}
+		
+	function getRepair(id){
+	
+		$.ajax({
+			type:"post",
+			url:myurl+"getAllServiceman.do",
+			data:{
+				'campus.id':id,
+				'state':1,
+			},
+			dataType:"json",
+			success:function(res){
+				if(res==""){
+					$("#serviceman").append("<option value='100'>该区域没负责人</option>");
+				}
+				 $.each(res,function(index,item){
+				 		$option = "<option value='"+item.id+"'>"+item.name+"</option>";
+				 		$("#serviceman").append($option);
+				 });
+				 form.render('select');
+			}
+		});
+		
+	}
+	
+	
+	$("#submit_btn").click(function(){
+		var id = GetQueryString('id');
+		var state = $("#state").val();
+		var serviceman = $("#serviceman").val();
+		var endTime = $("input[name='endTime']").val();
+		var maintenanceContent =$("#maintenanceContent").val();
+		var charge = $("input[name='charge']").val();
+		var defeatedreason = $("#defeatedreason").val();
+		if(state!=""&&serviceman!=""&&endTime!=""&&(maintenanceContent!=""||defeatedreason!="")&&charge!=""){
+ 		var data;
+		if(state==2){
+		  data = {
+				'id':id,
+				'state':state,
+				'endTime':endTime,
+				'maintenanceContent':maintenanceContent,
+				'charge':charge,
+			}
+		}else{
+			data = {
+				'id':id,
+				'state':state,
+				'endTime':endTime,
+				'defeatedreason':defeatedreason,
+			}
+		} 
+			
+		$.ajax({
+			type:"post",
+			url:myurl+"updateRepair.do",
+			data:data,
+			dataType:"json",
+			success:function(res){
+				if(res.success){
+					alert("修改成功");
+					window.location.href='repair.html';
+				}else{
+					alert("数据提交异常");
+				}
+			}
+		});	
+
+		
+		}else{
+			alert("请补全数据");	
+		}
+		
+	});	
+		
+</script>
+</html>

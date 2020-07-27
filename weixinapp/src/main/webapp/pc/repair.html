@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>保修平台管理</title>
+		<link rel="stylesheet" href="css/layui.css" />
+		<style>
+			a:hover{
+				color:#009688;
+			}
+		</style>
+	</head>
+	<body style="overflow: hidden">
+		<div style="width: 1400px; height: 900px;margin:0px auto;">
+		<div style="margin:0px auto;background-image: url(images/logo_1.png);width: 900px;height: 130px;background-repeat: no-repeat;background-position-y: -1px"></div>
+		<div style="margin:0px auto;height: 80px; width: 600px;text-align: center;">
+			<p><span style="font-size: 40px;color:#2F4056;font-weight: 600;">报修管理平台</span></p>
+		</div>
+		<div style="width: 980px; height: 630px;margin:0px auto;">
+		<div style="margin:0px auto;height: 40px; width:980px;line-height:40px;text-align: right;font-size: 16px;">
+			<p>
+			<span id="username" style="text-align: left;">
+				
+				</span>
+				&nbsp;&nbsp;
+				<a id="outLogin"><i class="layui-icon" style="color: #009688;" title="退出">&#x1006;</i></a>
+			</p>
+		</div>
+			<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+				<ul class="layui-tab-title">
+					<li class="layui-this">报修修管理</li>
+					<li>用户管理</li>
+					<li>登录日志</li>
+					<li>打印</li>
+					<li>统计</li>
+				</ul>
+				<div class="layui-tab-content">
+				<div class="layui-tab-item layui-show">	
+							<form class="layui-form layui-form-pane">
+							<table>
+								<tr>
+									<td width="40%">
+										<div class="layui-form-item">
+											<label class="layui-form-label">校区</label>
+											<div class="layui-input-inline">
+												<select id="campus">
+													<option value="100">请选择</option>
+												</select>
+											</div>
+										</div>
+									</td>
+									<td>
+									<div class="layui-form-item">
+											<label class="layui-form-label">是否解决</label>
+											<div class="layui-input-block">
+												<select id="state">
+													<option value="100">请选择</option>
+													<option value="0">未解决</option>
+													<option value="2">已解决</option>
+												</select>
+											</div>
+										</div>
+									</td>
+									<td width="30%" align="right">
+										<div class="layui-form-item">
+											<a id="Find" class="layui-btn">检索</a>
+										</div>
+									</td>
+									</tr>
+								  </table>		
+								 </form>
+					   	
+							<table class="layui-table" lay-skin="row" style="margin-top: 0px;">
+								<colgroup>
+									<col width="150">
+									<col width="200">
+									<col>
+								</colgroup>
+								<thead>
+									<tr>
+										<th width="20%">故障标题</th>
+										<th width="20%" style="text-align: center">报修人</th>
+										<th width="20%" style="text-align: center">联系方式</th>
+										<th width="20%" style="text-align: center">报修来源</th>
+										<th width="10%" style="text-align: center">状态</th>
+										<th width="8%" style="text-align: center">操作</th>
+									</tr>
+								</thead>
+								<tbody id="repairContent">
+								
+								</tbody>
+							</table>
+							 <div id="pageRepair" class="page"></div>
+					   </div>
+					   
+    				   <div class="layui-tab-item">
+    			
+    				   		<div style="margin-bottom: 10px;"><a class="layui-btn" onclick="addUser()">增加</a></div>
+    				   	
+    				    	<table class="layui-table" lay-skin="row" style="margin-top: 0px;">
+								<colgroup>
+									<col width="150">
+									<col width="200">
+									<col>
+								</colgroup>
+								<thead>
+									<tr>
+										<th width="70%">用户名</th>
+										<th width="20%" style="text-align: center">用户类型</th>
+										<th width="8%" style="text-align: center">操作</th>
+									</tr>
+								</thead>
+								<tbody id="userContent">
+								
+								</tbody>
+							</table>
+							 <div id="pageUser" class="page"></div>
+    				   </div>
+    				   <div class="layui-tab-item">
+    				   		<table class="layui-table" lay-skin="row" style="margin-top: 0px;">
+								<colgroup>
+									<col width="150">
+									<col width="200">
+									<col>
+								</colgroup>
+								<thead>
+									<tr>
+										<th width="50%">用户名</th>
+										<th width="10%" style="text-align: center">状态</th>
+										<th width="30%" style="text-align:center">时间</th>
+										<th width="8%" style="text-align: center">操作</th>
+									</tr>
+								</thead>
+								<tbody id="logContent">
+								
+								</tbody>
+							</table>
+							 <div id="pageLog" class="page"></div>
+    				   </div>
+    				   <div class="layui-tab-item">
+    				   		<table class="layui-table" lay-skin="row" style="margin-top: 0px;">
+								<colgroup>
+									<col width="150">
+									<col width="200">
+									<col>
+								</colgroup>
+								<thead>
+									<tr>
+										<th width="20%">故障标题</th>
+										<th width="20%" style="text-align: center">报修人</th>
+										<th width="20%" style="text-align: center">联系方式</th>
+										<th width="20%" style="text-align: center">报修来源</th>
+										<th width="8%" style="text-align: center">操作</th>
+									</tr>
+								</thead>
+								<tbody id="printContent">
+								
+								</tbody>
+							</table>
+							 <div id="pagePrint" class="page"></div>
+    				   </div>
+					   <div class="layui-tab-item">
+    				   		<div style="margin-bottom: 10px;"><a class="layui-btn" onclick="exportList()">导出</a></div>
+    				   		 <p style="text-align: center;">  
+					            <canvas id="canvas_circle" width="500" height="300">  
+					                		浏览器不支持canvas  
+					            </canvas>  
+					        </p>  
+    				   </div>
+				</div>
+			</div>
+			</div>
+				<div style="margin: 0px auto;width:288px;height: 40px;line-height: 40px;">
+                <div style="font-size:14px;color:gray;">版权所有 &copy;河南牧业经济学院  2017&nbsp;<span><a href="index.html" style="color: #F7B824;">报修入口</a></span></div>
+				</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery.js" ></script>
+	<script type="text/javascript" src="lay/dest/layui.all.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+	<script type="text/javascript">
+		var form;
+		layui.use(['form', 'layedit', 'laydate', 'jquery', 'laytpl'], function () {
+        	form = layui.form(),
+            layer = layui.layer,
+            layedit = layui.layedit,
+            $=layui.jquery,
+            laydate = layui.laydate;
+		});
+		var layer;
+		layui.use('layer', function(){
+		  layer = layui.layer;
+		  });
+	</script>
+	
+	<script>
+	$(function(){
+		$.ajax({
+			type:'get',
+			url:myurl+"getSession.do",
+			dataType:'text',
+			success:function(res){
+				if(res!="false"){
+					$("#username").html("<i class='layui-icon' style='color: #009688;' title='用户'>&#xe612;</i>"+res+",欢迎你！");
+				}else{
+					window.location.href="login.html";
+				}
+				
+			}
+		})
+		
+		$.ajax({
+				type:"get",
+				url:myurl+"selectAllCampus.do",
+				dataType:"json",
+				success:function(res){
+				 $.each(res,function(index,item){
+							var $option = "<option value='"+item.id+"'>"+item.name+"</option>"
+							$("#campus").append($option);
+					});
+					form.render('select');
+				}
+		});
+		
+	
+		getInfo(1,10);
+		
+		getUserInfo(1,10);
+		
+		getLogInfo(1,10);
+		
+		getCount();
+		
+		getPrintInfo(1,10);
+	});
+	
+		$("#Find").click(function(){
+			var campus = $("#campus").val();
+			var state  = $("#state").val();
+			if(campus==100&&state==100){
+				getInfo(1,10);
+			}else if(campus!=100&&state==100){
+				getInfoByCampus(1,10,campus);
+			}else if(state!=100&&campus==100){
+				getInfoByState(1,10,state);
+			}else{
+				getInfoByAll(1,10,campus,state);
+			}
+		});
+	
+		function getInfo(curr,pageSize){
+			var methodName=1;
+			var campus=1;
+			var state=1;
+			$("#repairContent").html("");
+			var offset = (curr-1)*pageSize;
+			$.ajax({
+				type:"post",
+				url:myurl+"selectRepairPage.do",
+				data:{
+					'offset':offset,
+					'limit':pageSize,
+					'order':'desc',
+				},
+				dataType:'json',
+				success:function(res){
+					 if(res.success){
+						$.each(res.data,function(index,item){
+					 		var $option = "";
+					 		if(item.state==0||item.state==1){
+					 			if(item.user!=null&&item.adminbo!=null){
+					 				$option = "<tr><td><a href='repair_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.user.name+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>微信报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>";
+					 			}else if(item.user==null&&item.adminbo!=null){
+					 				$option = "<tr><td><a href='repair_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.repairName+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>个人报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}else  if(item.user!==null&&item.serviceman!=null){
+					 				$option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.user.name+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>微信报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}else if(item.user==null&&item.serviceman!=null){
+					 				$option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.repairName+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>个人报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}
+					 		}else if(item.state==2||item.state==4){
+					 			if(item.user!=null){
+					 				 $option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.user.name+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>微信报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}else{
+					 				 $option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.repairName+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>个人报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}
+					 		}
+					 		$("#repairContent").append($option);
+					 		});
+						}	
+					else{
+						$("#repairContent").append("<tr><td colspan='6' align='center'>无数据</td></tr>");
+					}
+					
+					
+					
+				layui.use([ 'laypage', 'layer' ], function() {
+					var laypage = layui.laypage, layer = layui.layer;
+					laypage({
+						cont : 'pageRepair',
+						pages : res.total,
+						groups: 3,
+						skip : true,
+						curr:curr||1,
+						jump : function(obj, first) {//触发分页后的回调
+						if (!first) {//点击跳页触发函数自身，并传递当前页：obj.curr
+							getInfo(obj.curr, pageSize);
+						 		}
+					 		}
+						});
+					});
+				}
+			})
+		}
+	
+	function getInfoByCampus(curr,pageSize,campus){
+			$("#repairContent").html("");
+			var methodName=2;
+			var offset = (curr-1)*pageSize;
+			var state=1;
+			$.ajax({
+				type:"post",
+				url:myurl+"selectRepairPage.do",
+				data:{
+					'offset':offset,
+					'limit':pageSize,
+					'order':'desc',
+					'campus.id':campus,
+				},
+				dataType:'json',
+				success:function(res){
+					if(res.success){
+						$.each(res.data,function(index,item){
+					 		var $option = "";
+					 		 		if(item.state==0||item.state==1){
+					 			if(item.user!=null&&item.adminbo!=null){
+					 				$option = "<tr><td><a href='repair_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.user.name+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>微信报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>";
+					 			}else if(item.user==null&&item.adminbo!=null){
+					 				$option = "<tr><td><a href='repair_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.repairName+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>个人报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}else  if(item.user!==null&&item.serviceman!=null){
+					 				$option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.user.name+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>微信报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}else if(item.user==null&&item.serviceman!=null){
+					 				$option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.repairName+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>个人报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}
+					 		}else if(item.state==2||item.state==4){
+					 			if(item.user!=null){
+					 				 $option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.user.name+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>微信报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}else{
+					 				 $option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.repairName+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>个人报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}
+					 		}
+					 		$("#repairContent").append($option);
+					 		});
+					 		
+					}else{
+							$("#repairContent").append("<tr><td colspan='6' align='center'>无数据</td></tr>");
+					}
+				
+							
+							
+					
+					
+					
+				layui.use([ 'laypage', 'layer' ], function() {
+					var laypage = layui.laypage, layer = layui.layer;
+					laypage({
+						cont : 'pageRepair',
+						pages : res.total,
+						groups: 3,
+						skip : true,
+						curr:curr||1,
+						jump : function(obj, first) {//触发分页后的回调
+						if (!first) {//点击跳页触发函数自身，并传递当前页：obj.curr
+							getInfoByCampus(obj.curr, pageSize,campus);
+						 }
+					 }
+						});
+					});
+				}
+			})
+		}
+	
+		
+		function getInfoByState(curr,pageSize,state){
+			$("#repairContent").html("");
+			var methodName =3;
+			var campus ="";
+			var offset = (curr-1)*pageSize;
+			$.ajax({
+				type:"post",
+				url:myurl+"selectRepairPage.do",
+				data:{
+					'offset':offset,
+					'limit':pageSize,
+					'order':'desc',
+					'state':state,
+				},
+				dataType:'json',
+				success:function(res){
+					 if(res.success){
+						$.each(res.data,function(index,item){
+					 		var $option = "";
+					 		if(item.state==0||item.state==1){
+					 			if(item.user!=null&&item.adminbo!=null){
+					 				$option = "<tr><td><a href='repair_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.user.name+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>微信报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>";
+					 			}else if(item.user==null&&item.adminbo!=null){
+					 				$option = "<tr><td><a href='repair_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.repairName+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>个人报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}else  if(item.user!==null&&item.serviceman!=null){
+					 				$option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.user.name+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>微信报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}else if(item.user==null&&item.serviceman!=null){
+					 				$option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.repairName+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>个人报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}
+					 		}else if(item.state==2||item.state==4){
+					 			if(item.user!=null){
+					 				 $option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.user.name+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>微信报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}else{
+					 				 $option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.repairName+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>个人报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}
+					 		}
+					 		$("#repairContent").append($option);
+					 		});
+					 		
+					}else{
+							$("#repairContent").append("<tr><td colspan='6' align='center'>无数据</td></tr>");
+					}
+					
+					
+					
+				layui.use([ 'laypage', 'layer' ], function() {
+					var laypage = layui.laypage, layer = layui.layer;
+					laypage({
+						cont : 'pageRepair',
+						pages : res.total,
+						groups: 3,
+						skip : true,
+						curr:curr||1,
+						jump : function(obj, first) {//触发分页后的回调
+						if (!first) {//点击跳页触发函数自身，并传递当前页：obj.curr
+							getInfoByState(obj.curr, pageSize,state);
+						 }
+					 }
+						});
+					});
+				}
+			})
+		}
+	
+			function getInfoByAll(curr,pageSize,campus,state){
+			$("#repairContent").html("");
+			var methodName=4;
+			var offset = (curr-1)*pageSize;
+			$.ajax({
+				type:"post",
+				url:myurl+"selectRepairPage.do",
+				data:{
+					'offset':offset,
+					'limit':pageSize,
+					'order':'desc',
+					'campus.id':campus,
+					'state':state,
+				},
+				dataType:'json',
+				success:function(res){
+					if(res.success){
+						$.each(res.data,function(index,item){
+					 		var $option = "";
+					 		 if(item.state==0||item.state==1){
+					 			if(item.user!=null&&item.adminbo!=null){
+					 				$option = "<tr><td><a href='repair_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.user.name+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>微信报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>";
+					 			}else if(item.user==null&&item.adminbo!=null){
+					 				$option = "<tr><td><a href='repair_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.repairName+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>个人报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}else  if(item.user!==null&&item.serviceman!=null){
+					 				$option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.user.name+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>微信报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}else if(item.user==null&&item.serviceman!=null){
+					 				$option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.repairName+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>个人报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}
+					 		}else if(item.state==2||item.state==4){
+					 			if(item.user!=null){
+					 				 $option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.user.name+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>微信报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}else{
+					 				 $option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.repairName+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>个人报修</td><td align='center'>"+stateRepair[item.state]+"</td><td align='center'><a onclick='deleteRepair("+item.id+","+curr+","+pageSize+","+methodName+","+campus+","+state+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 			}
+					 		}
+					 			$("#repairContent").append($option);
+					 		});
+					}else{
+							$("#repairContent").append("<tr><td colspan='6' align='center'>无数据</td></tr>");
+					}
+					
+					
+					
+				layui.use([ 'laypage', 'layer' ], function() {
+					var laypage = layui.laypage, layer = layui.layer;
+					laypage({
+						cont : 'pageRepair',
+						pages : res.total,
+						groups: 3,
+						skip : true,
+						curr:curr||1,
+						jump : function(obj, first) {//触发分页后的回调
+						if (!first) {//点击跳页触发函数自身，并传递当前页：obj.curr
+							getInfoByAll(obj.curr, pageSize,campus,state);
+						 }
+					 }
+						});
+					});
+				}
+			})
+		}
+	
+	
+	$("#outLogin").click(function(){
+		$.ajax({
+			type:'get',
+			url:myurl+"outLogin.do",
+			dataType:'text',
+			success:function(res){
+			if(res=="success"){
+				window.location.href="login.html";
+				}
+			}
+		})
+	});
+	
+	function deleteRepair(id,curr,pageSize,methodName,campus,state){
+		$.ajax({
+			type:"post",
+			url:myurl+"deleteRepair.do",
+			data:{
+				id:id,
+			},
+			dataType:"json",
+			success:function(res){
+				if(res.success){
+					alert("删除成功");
+					if(methodName==1){
+						getInfo(curr,pageSize);
+					}else if(methodName==2){
+						getInfoByCampus(curr,pageSize,campus);
+					}else if(methodName==3){
+						getInfoByState(curr,pageSize,state);
+					}else{
+						getInfoByAll(curr,pageSize,campus,state);
+					}
+				}else{
+					alert("该数据已不存在");
+				}
+			}
+		});
+	}
+	
+	
+	
+	function getUserInfo(curr,pageSize){
+		$("#userContent").html("");
+		var offset = (curr-1)*pageSize;
+		$.ajax({
+			type:"POST",
+			url:myurl+"adminPage.do",
+			data:{
+				'offset':offset,
+				'limit':pageSize,
+			},
+			dataType:"json",
+			success:function(res){
+			if(res.success){
+				$.each(res.data,function(index,item){
+					 		var $option = "";
+					 		if(item.openId!=""&&item.openId!=null){
+					 			 $option = "<tr><td><a onclick='editWeixinUser("+item.id+")'>"+item.name+"</a></td><td align='center'>微信平台管理员</td><td align='center'><i class='layui-icon' style='color: #009688;' title='不可操作'>&#x1006;<i></a></td></tr>"
+					 		}else{
+					 			 $option = "<tr><td><a onclick='editUser("+item.id+")'>"+item.name+"</a></td><td align='center'>报修平台管理员</td><td align='center'><a onclick='deleteUser("+item.id+","+curr+","+pageSize+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 		}
+					 	$("#userContent").append($option);
+				});
+			  }else{
+			  	$("#userContent").append("<tr><td colspan='4' align='center'>无数据</td></tr>");
+			  }
+			  
+			 	layui.use([ 'laypage', 'layer' ], function() {
+					var laypage = layui.laypage, layer = layui.layer;
+					laypage({
+						cont : 'pageUser',
+						pages : res.total,
+						groups: 3,
+						skip : true,
+						curr:curr||1,
+						jump : function(obj, first) {//触发分页后的回调
+						if (!first) {//点击跳页触发函数自身，并传递当前页：obj.curr
+							getUserInfo(obj.curr, pageSize);
+						 		}
+					 		}
+						});
+					});
+			}
+		
+		})
+		
+	}
+	
+	function addUser(){
+			layer.open({
+				type:'1'
+			 	  ,shadeClose: true
+				  ,title: '增加用户'
+				  ,area: ['600px', '300px']
+				  ,content: '<div style="padding:20px;"><form class="layui-form layui-form-pane" action="">'+
+							'<div class="layui-form-item">'+
+							'<label class="layui-form-label">姓名</label>'+
+							'<div class="layui-input-block">'+
+							'<input type="text" name="name"  placeholder="请输入用户名" class="layui-input">'+
+							'</div></div>'+
+							'<div class="layui-form-item">'+
+							'<label class="layui-form-label">用户名</label>'+
+							'<div class="layui-input-block">'+
+							'<input type="text" name="username"  placeholder="请输入用户名" class="layui-input">'+
+							'</div>'+
+							'</div>'+
+							'<div class="layui-form-item">'+
+							'<label class="layui-form-label">密码框</label>'+
+							'<div class="layui-input-block">'+
+							'<input type="password" name="password"  placeholder="请输入密码" class="layui-input">'+
+							'</div>'+
+							'</div>'+
+							'<div class="layui-form-item">'+
+							'<div class="layui-input-block" style="text-align:right">'+
+							'<a onclick="submitUser()" class="layui-btn layui-btn-normal">增加</a>'+
+							'</div>'+
+							'</div>'+
+							'</form></div>'
+		});
+	}
+
+	
+	
+	function submitUser(){
+			var name=$("input[name='name']").val();
+			var username=$("input[name='username']").val();
+			var password=$("input[name='password']").val();
+			$.ajax({
+				type:"post",
+				url:myurl+"insertAdminOne.do",
+				data:{
+					name:name,
+					userName:username,
+					password:password,
+				},
+				dataType:'json',
+				success:function(res){
+					if(res.success){
+						alert(res.message);
+						layer.close(layer.index);						
+						getUserInfo(1,10);
+					}else{
+						alert(res.message);
+					}
+				}		
+			})
+		}
+	
+	function editWeixinUser(id){
+	
+		$.ajax({
+			type:"post",
+			url:myurl+"selectAdminOne.do",
+			data:{
+				id:id,
+			},
+			dataType:"json",
+			success:function(res){
+			 	if(res.success){
+					layer.open({
+					 shadeClose: true
+					,area: ['600px', '400px']
+				 	,title: '查看用户'
+				  	,content: '<form class="layui-form layui-form-pane" action="">'+
+				  			'<div class="layui-form-item">'+
+							'<label class="layui-form-label">OpenId</label>'+
+							'<div class="layui-input-block">'+
+							'<input type="text" name="OpenId" class="layui-input" value='+res.data.openId+'   disabled="disabled">'+
+							'</div></div>'+
+							'<div class="layui-form-item">'+
+							'<label class="layui-form-label">姓名</label>'+
+							'<div class="layui-input-block">'+
+							'<input type="text" name="name" class="layui-input" value='+res.data.name+' disabled="disabled">'+
+							'</div></div>'+
+							'<div class="layui-form-item">'+
+							'<label class="layui-form-label">电话</label>'+
+							'<div class="layui-input-block">'+
+							'<input type="text" name="tell" class="layui-input" value="'+res.data.tell+'" disabled="disabled">'+
+							'</div></div>'+
+							'<div class="layui-form-item">'+
+							'<label class="layui-form-label">用户名</label>'+
+							'<div class="layui-input-block">'+
+							'<input type="text" name="username"  class="layui-input" value='+res.data.userName+' disabled="disabled">'+
+							'</div>'+
+							'</div>'+
+							'<div class="layui-form-item">'+
+							'<label class="layui-form-label">密码框</label>'+
+							'<div class="layui-input-block">'+
+							'<input type="text" name="password" class="layui-input" value='+res.data.password+' disabled="disabled">'+
+							'</div>'+
+							'</div>'+
+							'</form>'
+		});
+			 		
+			 	}
+			}
+		});
+		
+	}
+	
+	function editUser(id){
+	
+			$.ajax({
+			type:"post",
+			url:myurl+"selectAdminOne.do",
+			data:{
+				id:id,
+			},
+			dataType:"json",
+			success:function(res){
+			 	if(res.success){
+				layer.open({
+				   shadeClose: true
+				  ,area: ['600px', '300px']
+				  ,title: '查看用户'
+				  ,content: '<form class="layui-form layui-form-pane" action="">'+
+							'<div class="layui-form-item">'+
+							'<label class="layui-form-label">姓名</label>'+
+							'<div class="layui-input-block">'+
+							'<input type="text" name="name"  class="layui-input" value='+res.data.name+'>'+
+							'</div></div>'+
+							'<div class="layui-form-item">'+
+							'<label class="layui-form-label">用户名</label>'+
+							'<div class="layui-input-block">'+
+							'<input type="text" name="username"  class="layui-input" value='+res.data.userName+'>'+
+							'</div>'+
+							'</div>'+
+							'<div class="layui-form-item">'+
+							'<label class="layui-form-label">密码框</label>'+
+							'<div class="layui-input-block">'+
+							'<input type="text" name="password"  class="layui-input" value='+res.data.password+'>'+
+							'</div>'+
+							'</div>'+
+							'</form>'
+						});
+				 }
+			 }
+		});
+	
+	}
+	
+	function deleteUser(id,curr,pageSize){
+		$.ajax({
+			type:"post",
+			url:myurl+"deleteAdminOne.do",	
+			data:{
+				id:id,
+			}, 
+			dataType:"json",
+			success:function(res){
+				if(res.success){
+					getUserInfo(curr,pageSize);
+				}else{
+					alert(res.message);
+				}
+			}
+		})
+	}
+	
+	function getLogInfo(curr,pageSize){
+		$("#logContent").html("");
+		var offset = (curr-1)*pageSize;
+		$.ajax({
+			type:"post",
+			url:myurl+"/logPage.do",
+			data:{
+			  'offset':offset,
+			  'limit':pageSize,
+			},
+			dataType:"json",
+			success:function(res){
+				if(res.success){
+					$.each(res.data,function(index,item){
+					 var $option = "";
+					 if(item.state==1){
+					 			 $option = "<tr><td>"+item.name+"</td><td align='center'>登录</td><td align='center'>"+item.logtime+"</td><td align='center'><a onclick='deleteLog("+item.id+","+curr+","+pageSize+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 }else{
+					 	 $option = "<tr><td>"+item.name+"</a></td><td align='center'>退出</td><td align='center'>"+item.logtime+"</td><td align='center'><a onclick='deleteLog("+item.id+","+curr+","+pageSize+")'><i class='layui-icon' style='color: #009688;'>&#xe640;<i></a></td></tr>"
+					 }
+					 	$("#logContent").append($option);
+					 	});
+					}else{
+							$("#logContent").append("<tr><td colspan='4' align='center'>无数据</td></tr>");
+					}
+					
+									
+					layui.use([ 'laypage', 'layer' ], function() {
+					var laypage = layui.laypage, layer = layui.layer;
+					laypage({
+						cont : 'pageLog',
+						pages : res.total,
+						groups: 3,
+						skip : true,
+						curr:curr||1,
+						jump : function(obj, first) {//触发分页后的回调
+						if (!first) {//点击跳页触发函数自身，并传递当前页：obj.curr
+							getLogInfo(obj.curr, pageSize);
+						 		}
+					 		}
+						});
+					});
+			}		
+		})
+	}
+	
+	
+	function deleteLog(id,curr,pageSize){
+		
+		$.ajax({
+			type:"post",
+			url:myurl+"/deleteLog.do",
+			data:{
+			 	'id':id,
+			},
+			dataType:"json",
+			success:function(res){
+				if(res.success){
+					getLogInfo(curr, pageSize);
+				}else{
+					alert(res.message);
+				}
+			}
+		})
+	}
+	
+function getPrintInfo(curr, pageSize) {
+		$("#printContent").html("");
+		var offset = (curr - 1) * pageSize;
+		var state = 2;
+		$.ajax({
+			type : "post",
+			url : myurl + "selectRepairPage.do",
+			data : {
+				'offset' : offset,
+				'limit' : pageSize,
+				'order' : 'desc',
+				'state' : state,
+			},
+			dataType : 'json',
+			success : function(res) {
+				if (res.success) {
+					$.each(res.data,function(index,item){
+				 		var $option = "";
+				 		if(item.chargeSource==""||item.signatureDepartment==""){
+				 			$option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.repairName+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>"+item.campus.name+"</td><td align='center'><a href='repair_print_detail.html?id="+item.id+"'><i class='layui-icon' style='color: #009688;' title='编辑'>&#xe642;<i></a></td></tr>"
+				 		}else{
+				 			$option = "<tr><td><a href='repair_user_detail.html?id="+item.id+"'>"+item.faultTitle+"</a></td><td align='center'>"+item.repairName+"</td><td align='center'>"+item.mobileTell+"</td><td align='center'>"+item.campus.name+"</td><td align='center'><a href='repair_print.html?id="+item.id+"' target='_blank'><i class='layui-icon' style='color: #009688;' title='打印'>&#xe601;<i></a></td></tr>"
+				 		}
+				 		$("#printContent").append($option);
+				 	});
+				}else{
+					$("#printContent").append("<tr><td colspan='6' align='center'>无数据</td></tr>");
+				}
+				
+				layui.use([ 'laypage', 'layer' ], function() {
+					var laypage = layui.laypage, layer = layui.layer;
+					laypage({
+						cont : 'pagePrint',
+						pages : res.total,
+						groups: 3,
+						skip : true,
+						curr:curr||1,
+						jump : function(obj, first) {//触发分页后的回调
+						if (!first) {//点击跳页触发函数自身，并传递当前页：obj.curr
+							getPrintInfo(obj.curr,pageSize);
+						 }
+						}
+					});
+				});
+			}
+		})
+	}
+	
+function getCount(){
+	$.ajax({
+		url:myurl+"/stat.do",
+		dataType:"json",
+		success:function(msg){
+		console.log(msg);
+			if (msg!=null) {
+			var sumline=0;
+			var state1=0;
+			var state2=0;
+			var state3=0;
+			var charge=0;
+			$(msg).each(function(i,e){
+				sumline=e.line+sumline;
+				if (e.sum!=null) {
+					charge=e.sum+charge;
+				}
+				
+				if (e.state==0) {
+					state1=e.line;
+				}else if(e.state==2){
+					state2=e.line;
+				}else{
+					state3=e.line+state3;
+				}
+				
+			}) 
+			/*if (state1!=0) {
+				state1=state1/sumline;
+			};
+			if (state2!=0) {
+				state2=state2/sumline;
+			};
+			if (state3!=0) {
+				state3=state3/sumline;
+			};*/
+			
+				init(state1,state2,state3,sumline,charge);
+			}
+		}
+	})
+}
+
+
+            //绘制饼图  
+            function drawCircle(canvasId, data_arr, color_arr,text_arr,line_arr,charge)  
+            {  
+                var c = document.getElementById(canvasId);  
+                var ctx = c.getContext("2d");  
+  
+                var radius = c.height / 2 - 20; //半径  
+                var ox = radius + 20, oy = radius + 20; //圆心  
+  
+                var width = 30, height = 10; //图例宽和高  
+                var posX = ox * 2 + 20, posY = 30;   //  
+                var textX = posX + width + 5, textY = posY + 10;  
+  
+                var startAngle = 0; //起始弧度  
+                var endAngle = 0;   //结束弧度  
+                for (var i = 0; i < data_arr.length; i++)  
+                {  
+                    //绘制饼图  
+                    endAngle = endAngle + data_arr[i] * Math.PI * 2; //结束弧度  
+                    ctx.fillStyle = color_arr[i];  
+                    ctx.beginPath();  
+                    ctx.moveTo(ox, oy); //移动到到圆心  
+                    ctx.arc(ox, oy, radius, startAngle, endAngle, false);  
+                    ctx.closePath();  
+                    ctx.fill();  
+                    startAngle = endAngle; //设置起始弧度  
+  
+                    //绘制比例图及文字  
+                    ctx.fillStyle = color_arr[i];  
+                    ctx.fillRect(posX, posY + 20 * i, width, height);  
+                    ctx.moveTo(posX, posY + 20 * i);  
+                    ctx.font = 'bold 12px 微软雅黑';    //斜体 30像素 微软雅黑字体 
+                     var percent;
+                    if ((i+1)%2==0) {
+						ctx.fillStyle = color_arr[i-1];
+						percent= text_arr[i]+line_arr[(i-1)/2]; 
+					}else if (i==6) {
+						ctx.fillStyle="red";
+						percent=text_arr[6]+line_arr[3];
+					}else{
+						  ctx.fillStyle = color_arr[i]; //"#000000";
+						  percent = text_arr[i] + "：" + 100 * data_arr[i] + "%"; 
+					} 
+                  
+                   
+                    ctx.fillText(percent, textX, textY + 20 * i);  
+                }  
+            }  
+  
+            function init(i1,i2,i3,i4,charge) {  
+                //绘制饼图  
+                //比例数据和颜色  
+                var line_arr=[i1,i2,i3,charge];
+                var state1=0;
+                var state2=0;
+                var state3=0;
+               	if (i1!=0) {
+					state1=i1/i4;
+				};
+				if (i2!=0) {
+					state2=i2/i4;
+				};
+				if (i3!=0) {
+					state3=i3/i4;
+				};
+                var data_arr = [state1,0, state2,0, state3,0,0];  
+                var color_arr = ["#00FF21","#FFFFFF","#00AABB","#FFFFFF", "#FF4400","#FFFFFF","#FFFFFF"];  
+                var text_arr = ["未处理:","条数:","已完成条数:","条数:", "未完成条数:","条数:","花费:¥ "];  
+  
+                drawCircle("canvas_circle", data_arr, color_arr, text_arr,line_arr,charge);  
+            }  
+  	function exportList(){
+  		layer.open({
+				type:'1'
+			 	  ,shadeClose: true
+				  ,title: '导出记录'
+				  ,area: ['500px', '260px']
+				  ,content: '<div style="padding:20px;"><form class="layui-form layui-form-pane" action="">'+
+							'<div class="layui-form-item">'+
+							'<label class="layui-form-label">时间</label>'+
+							'<div class="layui-input-block">'+
+							'<select id="expTime">'+
+							'<option value=""></option>'+
+							'<option value="1">本月内</option>'+
+							'<option value="2">本年内</option>'+
+							'<option value="3">全部</option>'+
+							'</select>'+
+							'</div></div>'+
+							'<div class="layui-form-item">'+
+							'<div class="layui-input-block" style="text-align:right;margin-top:70px;">'+
+							'<a onclick="exportDownload()" class="layui-btn layui-btn-normal">导出</a>'+
+							'</div>'+
+							'</div>'+
+							'</form></div>'
+		});
+		form.render('select'); 
+  	}
+  	
+  	function exportDownload(){
+  		var expTime = $("#expTime").val();
+  		if(expTime==""){
+  			alert("请选择导出的时间");
+  		}else{
+  			window.location.href=myurl+"getRepairByState.do?expTime="+expTime;
+  			layer.close(layer.index);	
+  		}
+  }
+</script>  
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>我的报修</title>
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.0.1/css/jquery-weui.min.css">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<!-- 搜索栏start -->
+<div class="weui-search-bar" id="searchBar">
+  <form class="weui-search-bar__form">
+	<div class="weui-search-bar__box">
+      <i class="weui-icon-search"></i>
+      <input type="search" class="weui-search-bar__input" id="searchInput" readonly="readonly" placeholder="搜索" >
+      <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+      <label class="weui-search-bar__label" id="searchText">
+        <i class="weui-icon-search"></i>
+        <span class="fl">请输入关键字，搜索报修单</span>
+      </label>
+	</div>
+  </form>
+  <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+  <a class="weui-search-bar__cancel-btn" id="searchcommit" style="display: none;">搜索</a>
+</div>
+<!-- 搜索栏end -->
+<div class="expendent"></div>
+<!-- 标签start -->
+<div class="weui-cells notopmar hasbotop clear">
+  <div class="weui-cell">
+    <div class="weui-cell__bd centire" id="all">
+      <strong class="serianutit bottombor">全部</strong>
+      <div class="bluer"></div>
+    </div>
+     <div class="weui-cell__bd centire" id="apply">
+      <strong class="serianutit">申请中</strong>
+      <div class="linear"></div>
+    </div>
+    <div class="weui-cell__bd centire" id="acccepted">
+      <strong clsss="serianutit" >已受理</strong>
+      <div class="linear"></div>
+    </div>
+    <div class="weui-cell__bd centire" id="end" style="color:black;">
+      <strong class="serianutit">已结束</strong>
+      <div class="linear"></div>
+    </div>
+  </div>
+</div>
+<div id="content_repair"></div>
+<!-- 滚动加载 -->
+<div class="weui-loadmore" id="add" style="display: none;">
+  <i class="weui-loading"></i>
+  <span class="weui-loadmore__tips">正在加载</span>
+</div>
+<div class="expendent"></div>
+<!-- footbar start -->
+<div class="weui-tab footer">
+  <div class="weui-tabbar">
+    <a href="myRepair_home_01.html" class="weui-tabbar__item">
+      <div class="weui-tabbar__icon">
+        <img src="../icons/house_icon.png" alt="">
+      </div>
+      <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="myIndent_01.html" class="weui-tabbar__item weui-bar__item--on">
+      <div class="weui-tabbar__icon">
+        <img src="../icons/record_icon.png" alt="">
+      </div>
+      <p class="weui-tabbar__label">订单</p>
+    </a>
+    <a href="01service_detailes.html" class="weui-tabbar__item">
+      <div class="weui-tabbar__icon">
+        <img src="../icons/repair_icon.png" alt="">
+      </div>
+      <p class="weui-tabbar__label">服务</p>
+    </a>
+    <a href="userCenter_01.html" class="weui-tabbar__item">
+      <div class="weui-tabbar__icon">
+        <img src="../icons/head_icon.png" alt="">
+      </div>
+      <p class="weui-tabbar__label">我的</p>
+    </a>
+  </div>
+</div>
+<!-- footbar end -->
+</body>
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/jquery-weui.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/swiper.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.0.1/js/city-picker.min.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/myIndent_01.js"></script>
+<!-- <script src="../js/commons.js"></script> -->
+
+</html>

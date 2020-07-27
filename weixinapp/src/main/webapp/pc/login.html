@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/layui.css" />
+	</head>
+	<body>
+		<div style="width: 1400px; height: 600px;margin: 0px auto;">
+		<div style="margin-top:100px;margin-left: auto;margin-right:auto;background-image: url(images/logo_1.png);width: 900px;height: 130px;background-repeat: no-repeat;background-position-y: -1px" ></div>
+		<div style="margin:0px auto;height: 80px; width: 600px;text-align: center;">
+			<span style="font-size: 40px;color:#2F4056;font-weight: 600;">报修管理平台</span>
+		</div>
+		<div style="margin: 0px auto; width:500px;height: 120px;">	
+		<form class="layui-form layui-form-pane" action="">
+			<div class="layui-form-item">
+				<label class="layui-form-label">用户名</label>
+				<div class="layui-input-block">
+					<input type="text" name="username"  placeholder="请输入用户名" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">密码框</label>
+				<div class="layui-input-block">
+					<input type="password" name="password"  placeholder="请输入密码" class="layui-input">
+				</div>
+			</div>
+		</form>
+		</div>
+		<div style="margin:0px auto;height: 36px; width: 150px;">
+			<a class="layui-btn layui-btn-normal" id="Login">登录</a> 	<a class="layui-btn layui-btn-normal" onclick="javascript:history.go(-1)">返回</a>
+		</div>
+		
+		
+		<div style="margin: 100px auto;width:288px;height: 40px;line-height: 40px;">
+             <div style="font-size:14px;color:gray;">版权所有 &copy;河南牧业经济学院  2017&nbsp;<span><a href="index.html" style="color: #F7B824;">报修入口</a></span></div>
+          
+		</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery.js" ></script>
+	<script type="text/javascript" src="lay/dest/layui.all.js" ></script>
+	<script type="text/javascript" src="js/config.js" ></script>
+	<script>
+		$("#Login").click(function(){
+			var username=$("input[name='username']").val();
+			var password=$("input[name='password']").val();
+			
+			if(username.trim()!=""&&password.trim()!=""){
+							$.ajax({
+				type:"POST",
+				url:myurl+"login.do",
+				data:{
+				'userName':username,
+				'password':password,
+				},
+				dataType:'json',
+				success:function(res){
+					if(res.success){
+						window.location.href="repair.html"
+					}else{
+						alert("不存在该用户");
+					}
+				}
+			});
+			}else{
+				alert("用户名密码不为能空");
+			}
+			
+
+		})
+		
+	</script>
+</html>

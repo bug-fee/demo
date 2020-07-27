@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.repairs.dao.RepairDao">
+	<resultMap type="com.repairs.bo.Repairbo" id="repairResultMap">
+		<id property="id" column="id" />
+		<result property="repairName" column="repairName"/>
+		<result property="subDeptName" column="subDeptName" />
+		<result property="floorName" column="floorName" />
+		<result property="roomName" column="roomName" />
+		<result property="workTell" column="workTell" />
+		<result property="mobileTell" column="mobileTell" />
+		<result property="facilityName" column="facilityName" />
+		<result property="facilityModel" column="facilityModel" />
+		<result property="facilityNum" column="facilityNum" />
+		<result property="faultTitle" column="faultTitle" />
+		<result property="faultDescribe" column="faultDescribe"/>
+		<result property="state" column="state"/>
+		<result property="defeatedreason" column="defeatedreason"/>
+		<result property="subTime" column="subTime"/>
+		<result property="endTime" column="endTime"/>
+		<result property="charge" column="charge"/>
+		<result property="seriano" column="seriano"/>
+		<result property="receiptTime" column="receiptTime"/>
+		<result property="lookup" column="lookup"/>
+		<result property="updatetime" column="updatetime"/>
+		<result property="serviceLookup" column="serviceLookup"/>
+		<result property="adminLookup" column="adminLookup"/>
+		<result property="maintenanceContent" column="maintenanceContent"></result>
+		<result property="chargeSource" column="chargeSource"></result>
+		<result property="signatureDepartment" column="signatureDepartment"></result>
+		<association property="campus" column="campusId" javaType="Campusbo" select="findCampusById"></association>
+		<association property="user" column="userId" select="finduserById" javaType="Userbo" ></association>
+		<association property="serviceman" column="servicemanId" select="findservicemanById" javaType="Servicemanbo" ></association>
+		<association property="adminbo" column="adminId" select="findAdminboById" javaType="Adminbo"></association>
+	</resultMap>
+
+	<resultMap type="com.repairs.bo.Servicemanbo" id="servicemanMap">
+		<id property="id" column="id" />
+		<result property="openId" column="openId" />
+		<result property="name" column="name" />
+		<result property="tell" column="tell" />
+		<result property="authorizedTime" column="authorizedTime" />
+		<result property="state" column="state" />
+		<association property="campus" column="campusId" javaType="CampusBo" select="findCampusById">
+			<id property="id" column="id" />
+			<result property="name" column="name" />
+		</association>
+	</resultMap>
+	
+	<resultMap type="com.repairs.bo.Userbo" id="userResultMap">
+		<id property="id" column="id" />
+		<result property="openId" column="openId" />
+		<result property="name" column="name" />
+		<result property="tell" column="tell" />
+		<result property="userName" column="userName" />
+		<result property="password" column="password" />
+		<association property="campus" column="campusId" javaType="CampusBo" select="findCampusById">
+			<id property="id" column="id" />
+			<result property="name" column="name" />
+		</association>
+	</resultMap>
+	<resultMap type="com.repairs.bo.Campusbo" id="campusResultMap">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+	</resultMap>
+	
+	<resultMap type="Adminbo" id="AdminboMap">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="tell" column="tell"/>
+	</resultMap>
+	
+	<select id="findCampusById" parameterType="int" resultType="Campusbo">
+		select * from campus where id=#{campusId};
+	</select>
+	<select id="finduserById" parameterType="int" resultMap="userResultMap">
+		select * from user where id=#{userId};
+	</select>
+	<select id="findservicemanById" parameterType="int" resultMap="servicemanMap">
+		select * from serviceman where id=#{servicemanId};
+	</select>
+	
+	<select id="findAdminboById" resultMap="AdminboMap">
+		select * from admin where id=#{adminId}
+	</select>
+	
+	<select id="selectRepair" parameterType="Repairbo" resultMap="repairResultMap">
+		SELECT * FROM repair 
+		<trim prefix="where" suffixOverrides="or | and">
+			<if test="id!=null">id=#{id} AND</if>
+			<if test="subDeptName!=null">subDeptName LIKE CONCAT('%',#{subDeptName},'%') AND</if>
+			<if test="floorName!=null">floorName LIKE CONCAT('%',#{floorName},'%') AND</if>
+			<if test="roomName!=null">roomName LIKE CONCAT('%',#{roomName},'%') AND</if>
+			<if test="workTell!=null">workTell=#{workTell} AND</if>
+			<if test="mobileTell!=null">mobileTell=#{mobileTell} AND</if>
+			<if test="facilityName!=null">facilityName LIKE CONCAT('%',#{facilityName},'%') AND</if>
+			<if test="facilityModel!=null">facilityModel LIKE CONCAT('%',#{facilityModel},'%') AND</if>
+			<if test="facilityNum!=null">facilityNum=#{facilityNum} AND</if>
+			<if test="faultTitle!=null">faultTitle LIKE CONCAT('%',#{faultTitle},'%') AND</if>
+			<if test="faultDescribe!=null">faultDescribe LIKE CONCAT('%',#{faultDescribe},'%') AND</if>
+			<if test="state!=null">state=#{state} AND</if>
+			<if test="defeatedreason!=null">defeatedreason=#{defeatedreason} AND</if>
+			<if test="subTime!=null">subTime=#{subTime} AND</if>
+			<if test="endTime!=null">endTime=#{endTime} AND</if>
+			<if test="charge!=null">charge=#{charge} AND</if>
+			<if test="seriano!=null">seriano=#{seriano} AND</if>
+			<if test="receiptTime!=null">receiptTime=#{receiptTime} AND</if>
+			<if test="lookup!=null">lookup=#{lookup} AND</if>
+			<if test="campus!=null and campus.id!=null">campusId=#{campus.id} AND</if>
+			<if test="serviceLookup!=null">serviceLookup=#{serviceLookup} AND</if>
+			<if test="adminLookup!=null">adminLookup=#{adminLookup} AND</if>
+			<if test="user!=null and user.id!=null">userId=#{user.id} AND</if>
+			<if test="serviceman!=null and serviceman.id!=null">servicemanId=#{serviceman.id} AND</if>
+		</trim>
+		<if test="order!=null">
+			order by id ${order}
+		</if>
+		<if test="offset!=null and limit!=null">LIMIT #{offset},#{limit}</if>
+	</select>
+	
+	<select id="selectRepairAll" resultType="Repairbo" resultMap="repairResultMap">
+			select * from repair 
+			<trim prefix="where" suffixOverrides="and">
+				<if test="state!=null"> state=#{state} and</if>
+				<if test="campus!=null">campusId=#{campus.id} and</if>
+			</trim>
+	</select>
+	
+	<update id="updateRepair" parameterType="Repairbo">
+		UPDATE repair
+		<trim prefix="set" suffixOverrides=",">
+			<if test="repairName!=null">repairName=#{repairName},</if>
+			<if test="subDeptName!=null">subDeptName=#{subDeptName} ,</if>
+			<if test="floorName!=null">floorName=#{floorName},</if>
+			<if test="roomName!=null">roomName=#{roomName},</if>
+			<if test="workTell!=null">workTell=#{workTell},</if>
+			<if test="mobileTell!=null">mobileTell=#{mobileTell},</if>
+			<if test="facilityName!=null">facilityName=#{facilityName},</if>
+			<if test="facilityModel!=null">facilityModel=#{facilityModel},</if>
+			<if test="facilityNum!=null">facilityNum=#{facilityNum},</if>
+			<if test="faultTitle!=null">faultTitle=#{faultTitle},</if>
+			<if test="state!=null">state=#{state},</if>
+			<if test="defeatedreason!=null">defeatedreason=#{defeatedreason},</if>
+			<if test="subTime!=null">subTime=#{subTime},</if>
+			<if test="endTime!=null">endTime=#{endTime},</if>
+			<if test="charge!=null">charge=#{charge},</if>
+			<if test="lookup!=null">lookup=#{lookup} ,</if>
+			<if test="serviceLookup!=null">serviceLookup=#{serviceLookup} ,</if>
+			<if test="adminLookup!=null">adminLookup=#{adminLookup} ,</if>
+			<if test="seriano!=null">seriano=#{seriano} ,</if>
+			<if test="receiptTime!=null">receiptTime=#{receiptTime} ,</if>
+			<if test="faultDescribe!=null">faultDescribe=#{faultDescribe},</if>
+			<if test="maintenanceContent!=null">maintenanceContent=#{maintenanceContent},</if>
+			<if test="campus!=null and campus.id!=null">campusId=#{campus.id},</if>
+			<if test="user!=null and user.id!=null">userId=#{user.id},</if>
+			<if test="serviceman!=null and serviceman.id!=null">servicemanId=#{serviceman.id},</if>
+			<if test="adminbo!=null">adminId=#{adminbo.id},</if>
+			<if test="chargeSource!=null">chargeSource=#{chargeSource},</if>
+			<if test="signatureDepartment!=null">signatureDepartment=#{signatureDepartment},</if>
+		</trim>
+		<trim prefix="where" suffixOverrides="and | or">
+			<if test="id!=null">id=#{id} AND</if>
+		</trim>
+	</update>
+	
+	<insert id="insertRepair" parameterType="Repairbo" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO repair(repairName,subDeptName,floorName,roomName,mobileTell,facilityName,facilityModel,facilityNum,faultTitle,faultDescribe,state,subTime,campusId) 
+		values(#{repairName},#{subDeptName},#{floorName},#{roomName},#{mobileTell},#{facilityName},#{facilityModel},#{facilityNum},#{faultTitle},#{faultDescribe},#{state},#{subTime},${campus.id})
+	</insert>
+	
+	<insert id="insertRepair1" parameterType="Repairbo" useGeneratedKeys="true" keyProperty="id" > 
+		insert into repair(
+		<if test="repairName!=null">repairName,</if>
+		<if test="subDeptName!=null">subDeptName,</if>floorName,roomName,
+		<if test="workTell!=null">
+			workTell,
+		</if>
+		mobileTell,facilityName,facilityModel,facilityNum,faultTitle,state,subTime,receiptTime,lookup,serviceLookup,adminLookup,faultDescribe,
+		 <if test="user!=null">
+		 	userId,
+		 </if>
+		campusId) values(
+		<if test="repairName!=null">#{repairName},</if>
+		<if test="subDeptName!=null">#{subDeptName},</if>#{floorName},#{roomName},
+		<if test="workTell!=null">
+			#{workTell},
+		</if>
+		#{mobileTell},#{facilityName},#{facilityModel},#{facilityNum},#{faultTitle},#{state},#{subTime},#{receiptTime},#{lookup},#{serviceLookup},#{adminLookup},#{faultDescribe},
+		 <if test="user!=null">
+		 	#{user.id},
+		 </if>
+		#{campus.id})	
+	</insert>
+	
+	<delete id="deleteRepair" parameterType="int">
+		delete from repair where id=#{id}
+	</delete>
+	
+	<select id="selectRepairById" resultMap="repairResultMap">
+		select * from repair where id=#{id}
+	</select>
+	<select id="stat" resultType="java.util.HashMap">
+		select state,count(*) line,sum(charge) sum from repair group by state;
+	</select>
+	<select id="selectRepairByState" parameterType="Repairbo" resultMap="repairResultMap">
+		select * from repair where state=2 <if test="endTime!=nulll"> and endTime CONCAT('%',#{endTime})</if>
+	</select>
+</mapper>
