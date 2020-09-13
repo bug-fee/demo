@@ -51,6 +51,27 @@
                     <target>7</target>
                 </configuration>
             </plugin>
+
+            <!-- tomcat插件控制 -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <!--端口控制-->
+                    <port>8080</port>
+                    <!-- tomcat管理路径,即ip端口等信息 -->
+                    <url>http://127.0.0.1:8080/manager/text</url>
+                    <!--项目路径控制意味着http://localhost:8080/abc-->
+                    <path>/abc</path>
+                    <!--编码-->
+                    <uriEncoding>UTF-8</uriEncoding>
+                    <!--项目是否更新 默认true 可不配置-->
+                    <update>true</update>
+                    <!--maven setting.xml以及tomcat tomcat-users.xml 中配置的用户名密码-->
+                    <server>tomcat7</server>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
