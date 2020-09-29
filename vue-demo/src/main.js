@@ -1,5 +1,5 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import {createApp} from 'vue';
+import App from './App.vue';
 
 /**
  * mount,手动挂载
@@ -15,4 +15,18 @@ import App from './App.vue'
  *
  * render : h => h(App);
  */
-createApp(App).mount('#app');
+const app = createApp(App);
+/**
+ 自定义大写指令
+ */
+app.directive('upper-word', {
+    // When the bound element is mounted into the DOM...
+    mounted(el, binding) {
+        // Focus the element
+        console.log(el);
+        console.log(binding);
+        el.textContent = binding.value.toUpperCase();
+    }
+});
+
+app.mount('#app');

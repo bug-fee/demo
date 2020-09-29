@@ -13,7 +13,7 @@
     //VM定义
     export default {
         // 声明当前组件名称
-        name: 'HelloVue',
+        name: 'BothWayBind',
         //model定义
         data() {
             return {
