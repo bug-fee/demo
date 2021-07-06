@@ -1,6 +1,16 @@
 <template>
     <div id="home">
         首页
+        <ul>
+            <li>
+                <router-link to="news">新闻</router-link>
+            </li>
+            <li>
+                <router-link to="shop">购物</router-link>
+            </li>
+        </ul>
+        <!--添加路由出口-->
+        <router-view></router-view>
     </div>
 </template>
 
@@ -17,7 +27,7 @@
         background-color: deepskyblue;
         margin: 0px auto;
         font-size: 20px;
-        color:red;
-        text-align:center;
+        color: red;
+        text-align: center;
     }
 </style>

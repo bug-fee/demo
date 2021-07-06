@@ -1,11 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// 引入页面
+// 一级路由，引入页面
 import Home from './views/Home'
 import About from './views/About'
 import Mine from './views/Mine'
 import Props from './views/Props'
+
+// 二级路由，引入页面
+import News from './views/News';
+import Shop from './views/Shop';
 
 Vue.use(VueRouter);
 
@@ -45,7 +49,7 @@ export default new VueRouter({
                 return '/about'
             }
         },
-        {name: 'home', path: '/home', component: Home},
+        // {name: 'home', path: '/home', component: Home},
         {name: 'about', path: '/about', component: About},
         // 配置使用别名
         // /a 的别名是 /b，意味着，当用户访问 /b 时，URL 会保持为 /b，但是路由匹配则为 /a，就像用户访问 /a 一样。
@@ -60,7 +64,17 @@ export default new VueRouter({
         // props 被设置为 true，route.params 将会被设置为组件属性,component上使用props：['name']绑定参数
         {name: 'static-props', path: '/static/props/:name', component: Props, props: true},
         // 通过函数转换传递props
-        {name: 'fun-props', path: '/fun/props/:name', component: Props, props: func}
+        {name: 'fun-props', path: '/fun/props/:name', component: Props, props: func},
+        // 嵌套路由，注意此处嵌套路由的path前缀不能带/
+        {
+            name: 'home', path: '/home', component: Home,
+            children: [
+                // 嵌套路由使用重定向
+                {path: '/home', redirect: '/home/news'},
+                {path: 'news', component: News},
+                {path: 'shop', component: Shop}
+            ]
+        },
 
     ]
 });
